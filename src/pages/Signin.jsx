@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -34,6 +35,9 @@ const useStyles = makeStyles({
 
 const Signin = () => {
 
+    const location = useLocation();
+    const navigate = useNavigate();
+
     const [studentID, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('')
@@ -47,7 +51,7 @@ const Signin = () => {
         setEmailError(false)
         setPasswordError(false)
 
-        if(studentID === '' && password === ''){
+        if(studentID === '' || password === ''){
             if(studentID === ''){
                 setEmailError(true)
             }
@@ -68,25 +72,23 @@ const Signin = () => {
                 })
     
                 const data = await resp.json()
-                localStorage.setItem('jwt', JSON.stringify(data.token))
+                console.log(data)
+
                 if(resp.status === 400){
                     setError(data.msg)
+                }else{
+                    localStorage.setItem('jwt', JSON.stringify(data.token))
+                    navigate(`/dashboard`)
                 }
     
             } catch (error) {
                 console.log(error)
             }
         }
-
-        
-
-        
-    }
+     }
 
     const classes = useStyles()
-
-
-
+    
   return (
     <>
     <Paper elevation={10} className={classes.paperStyle}>
@@ -110,6 +112,7 @@ const Signin = () => {
                 id="standard-basic" 
                 label="Password" 
                 variant="standard"
+                type="password"
                 error={passwordError}
                 onChange={(e) => setPassword(e.target.value)}
                 fullWidth
