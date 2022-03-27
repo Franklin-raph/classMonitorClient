@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { makeStyles } from '@mui/styles';
 import { Paper } from '@mui/material';
+import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles({
     center : {
@@ -37,11 +38,11 @@ const Signin = () => {
 
     const location = useLocation();
     const navigate = useNavigate();
-
+    
     const [studentID, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('')
-
+    
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
 
@@ -76,9 +77,12 @@ const Signin = () => {
 
                 if(resp.status === 400){
                     setError(data.msg)
+                    setTimeout(() => setError(""),1000)
+                    navigate(`/signin`)
                 }else{
-                    localStorage.setItem('jwt', JSON.stringify(data.token))
+                    localStorage.setItem('studentDetails', JSON.stringify(data))
                     navigate(`/dashboard`)
+                    window.location.reload(true)
                 }
     
             } catch (error) {

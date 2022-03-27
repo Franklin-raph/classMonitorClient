@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Signup from './pages/Signup';
 import Signin from './pages/Signin';
-import Navbar from './components/Navbar';
 import AllStudents from './pages/AllStudents';
 import Layout from './components/Layout';
 import { ThemeProvider, createTheme } from '@mui/material/styles';

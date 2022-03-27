@@ -10,6 +10,8 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
+import { useSelector, useDispatch } from 'react-redux';
+import { signUp } from '../redux/studentSlice'
 
 const useStyles = makeStyles({
     center : {
@@ -40,9 +42,9 @@ const useStyles = makeStyles({
 
 })
 
-const Signup = () => {
+const Signup = (props) => {
 
-    const navigate = useNavigate();
+    
 
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -51,6 +53,10 @@ const Signup = () => {
     const [address, setAddress] = useState('');
     const [gender, setGender] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+
+    const navigate = useNavigate();
+    const student = useSelector(state => state.student) 
+    const dispatch = useDispatch();
     
 
     const [emailError, setEmailError] = useState(false);
@@ -66,12 +72,16 @@ const Signup = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
 
+        dispatch(signUp({name,email,phoneNum,address,gender}))
+
         setEmailError(false)
         setPasswordError(false)
         setNameError(false)
         setPhoneNumError(false)
         setAddressError(false)
         setConfirmPasswordError(false)
+
+        
 
         if(name === '' || email === '' || password === '' || confirmPassword === '' || phoneNum === '' || address === '' || gender === ''){
             if(name === ''){
@@ -126,9 +136,10 @@ const Signup = () => {
                 if(resp.status === 400){
                     setError(data.msg)
                 }else{
-                    localStorage.setItem('jwt', JSON.stringify(data.token))
-                    navigate(`/dashboard`) 
+                    localStorage.setItem('studentDetails', JSON.stringify(data))
+                    navigate(`/dashboard`)
                     console.log(data)
+                    // setloggedInStudent(data)
                 }
             } catch (error) {
                 console.log(error)
@@ -136,6 +147,8 @@ const Signup = () => {
         }
     }
 
+    
+    
     const classes = useStyles()
 
   return (
