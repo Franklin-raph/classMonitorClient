@@ -13,6 +13,7 @@ import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     paperStyle: {
@@ -23,6 +24,9 @@ const useStyles = makeStyles({
     },
     innerCardText : {
         marginLeft : 20
+    },
+    links : {
+        textDecoration: 'none'
     }
 })
 
@@ -38,8 +42,9 @@ const AllStudents = () => {
         try {
             const res = await axios.get('http://localhost:5000/student')
             const data = await res.data
-            console.log(typeof data)
             setStudents(data)
+            console.log(data)
+            console.log(students)
         } catch (error) {
             console.log(error)
         }
@@ -71,15 +76,17 @@ const AllStudents = () => {
                 .map((student) => {
                     return (
                     <Grid item key={student.id} xs={12} sm={6} md={4}>
-                        <Card elevation={3} className={classes.paperStyle}>
-                            <div className={classes.innerCardDesign}>
-                                <Avatar sx={{ backgroundColor:'#808080'}}>{student.email.charAt(0)}</Avatar>
-                                <div className={classes.innerCardText}>
-                                    <Typography variant='subtitle2' sx={{fontSize: '16px'}}>{student.email}</Typography>
-                                    {student.name}
+                        <Link to={`/student/${student.studentID}`} className={classes.links}>
+                            <Card elevation={3} className={classes.paperStyle}>
+                                <div className={classes.innerCardDesign}>
+                                    <Avatar sx={{ backgroundColor:'#808080'}}>{student.email.charAt(0)}</Avatar>
+                                    <div className={classes.innerCardText}>
+                                        <Typography variant='subtitle2' sx={{fontSize: '16px'}}>{student.email}</Typography>
+                                        {student.name}
+                                    </div>
                                 </div>
-                            </div>
-                        </Card>
+                            </Card>
+                        </Link>
                     </Grid> 
                     )
                 }):(

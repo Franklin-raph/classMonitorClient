@@ -79,7 +79,7 @@ const Layout = ({ children }) => {
         <div className={classes.appbar}>
             <div className={classes.toolbar}>
                 <h2> Class Monitor </h2>
-                <h4> Welcome, {studentName} </h4>
+                { studentName ? <h4> Welcome, {studentName} </h4> : null}
             </div>
         </div>
         < div className={classes.root}>
@@ -119,7 +119,7 @@ const Layout = ({ children }) => {
                         >
                             <Tooltip title="View all students" placement="right">
                                 <IconButton>
-                                    <VisibilityIcon color="success"/>
+                                    <LoginIcon color="success"/>
                                 </IconButton>
                             </Tooltip>
                             <ListItemText>
@@ -185,21 +185,6 @@ const Layout = ({ children }) => {
                             </Tooltip>
                             <ListItemText>
                                     About
-                            </ListItemText>
-                        </ListItem>
-
-                        <ListItem 
-                        button
-                        onClick={() => navigate(`/about`)}
-                        className={location.pathname === "/about" ? classes.active : null}
-                        >
-                            <Tooltip title="About" placement="right">
-                                <IconButton>
-                                    <InfoIcon color="success"/>
-                                </IconButton>
-                            </Tooltip>
-                            <ListItemText>
-                                    {/* {studentData.name} */}
                             </ListItemText>
                         </ListItem>
                 </List>
