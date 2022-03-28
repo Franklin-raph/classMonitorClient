@@ -1,12 +1,18 @@
 import React from 'react'
 import Typography from '@mui/material/Typography'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
 
 const Navbar = () => {
   return (
     <>
-        <Typography color="textSecondary" variant="h4" component="h2">
-            Navbar
-        </Typography>
+      <AppBar>
+        <Toolbar>
+          <Typography variant="h1" component="h1">
+                Class Monitor
+            </Typography>
+        </Toolbar>
+      </AppBar> 
     </>
   )
 }

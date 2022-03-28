@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import StudentDetails from './pages/StudentDetails';
 import AllStudents from './pages/AllStudents';
 import Layout from './components/Layout';
+import Navbar from './components/Navbar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -27,7 +28,8 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <Router>
-          <Layout>
+          <Navbar />
+          {/* <Layout>
             <Routes>
               <Route path='/dashboard' element={ <Dashboard /> } />
               <Route path='/signin' element={ <Signin /> } />
@@ -37,7 +39,7 @@ function App() {
               <Route path='/allstudents' element={ <AllStudents /> } />
               <Route path='/student/:id' element={ <StudentDetails /> } />
             </Routes>
-          </Layout>
+          </Layout> */}
         </Router>
       </ThemeProvider>
     </>
