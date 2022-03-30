@@ -15,7 +15,7 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     paperStyle: {
         padding: 20,
     },
@@ -27,8 +27,14 @@ const useStyles = makeStyles({
     },
     links : {
         textDecoration: 'none'
+    },
+    containerStyle : {
+        [theme.breakpoints.down("lg")] : {
+            marginTop: '5rem',
+            marginBottom: '4rem'
+        }
     }
-})
+}))
 
 const AllStudents = () => {
 
@@ -51,7 +57,7 @@ const AllStudents = () => {
     },[])
 
   return (
-    <Container>
+    <Container className={classes.containerStyle}>
             <Paper
                 component="form"
                 sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 250, margin: '18px auto' }}

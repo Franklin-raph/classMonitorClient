@@ -11,11 +11,14 @@ export const studentSlice = createSlice({
         },
         signIn:(state, action) => {
             state.value = action.payload;
+        },
+        updateAccount:(state, action) => {
+            state.value = action.payload;
         }
     }
 })
 
-export const { signUp, signIn } = studentSlice.actions;
+export const { signUp, signIn, updateAccount } = studentSlice.actions;
 export default studentSlice.reducer
 
 

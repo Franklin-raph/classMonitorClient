@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -11,7 +11,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import { useSelector, useDispatch } from 'react-redux';
-import { signUp } from '../redux/studentSlice'
+import { updateAccount } from '../redux/studentSlice'
 
 const useStyles = makeStyles((theme) => ({
     center : {
@@ -22,84 +22,80 @@ const useStyles = makeStyles((theme) => ({
     },
     paperStyle : {
         padding: 35,
-        height: '820px',
+        height: '750px',
         width: '500px',
         margin: '4rem auto',
         [theme.breakpoints.down('sm')] : {
             width: '300px',
             paddingBottom: 70,
-            height: '820px'
-        },
-        [theme.breakpoints.down("lg")] : {
-            marginTop: '5rem',
-            marginBottom: '4rem'
+            height: '800px',
+            marginTop: '4rem'
         }
     },
     header : {
         textAlign: 'center',
         marginBottom: 40,
     },
-    passwordStyle : {
-        // margin: '25px',
-    },
-    
 }))
 
-const Signup = (props) => {
+const AccountUpdate = () => {
 
-    
+    const studentDetails = useSelector(state => state.student)
 
-    const [name, setName] = useState('');
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
-    const [phoneNum, setPhoneNum] = useState('');
-    const [address, setAddress] = useState('');
-    const [gender, setGender] = useState('');
-    const [github, setGithub] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phoneNum, setPhoneNum] = useState("");
+    const [address, setAddress] = useState("");
+    const [gender, setGender] = useState("");
+    const [github, setGithub] = useState("");
+    const [id, setId] = useState();
+    const [state, setState] = useState({});
 
-    const navigate = useNavigate();
-    const student = useSelector(state => state.student) 
+    const navigate = useNavigate(); 
     const dispatch = useDispatch();
     
-
     const [emailError, setEmailError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
     const [nameError, setNameError] = useState(false);
     const [phoneNumError, setPhoneNumError] = useState(false);
     const [addressError, setAddressError] = useState(false);
-    const [confirmPasswordError, setConfirmPasswordError] = useState(false);
     const [githubError, setGithubError] = useState(false);
     const [error, setError] = useState('')
-    const [passwordLengthError, setPasswordLengthError] = useState('')
+
     
+    useEffect(() => {
 
-    const handleRegister = async (e) => {
+        setName(studentDetails.value.signedInStudent.name)
+        setEmail(studentDetails.value.signedInStudent.email)
+        setGender(studentDetails.value.signedInStudent.gender)
+        setGithub(studentDetails.value.signedInStudent.github)
+        setAddress(studentDetails.value.signedInStudent.address)
+        setPhoneNum(studentDetails.value.signedInStudent.phoneNum)
+        setId(studentDetails.value.signedInStudent.studentID)
+
+        // Used this line code down here to solve this error ===>  React useEffect causing: Can't perform a React state update on an unmounted component...
+        return () => {
+            setState({})
+        }
+    
+    },[])
+
+    // name,email,gender,github,address,phoneNum,id
+    console.log(id)
+
+    const studentID = id
+
+    const handleUpdate = async (e) => {
         e.preventDefault();
-
-        dispatch(signUp({name,email,phoneNum,address,gender}))
 
         setNameError(false)
         setEmailError(false)
         setGithubError(false)
         setAddressError(false)
         setPhoneNumError(false)
-        setPasswordError(false)
-        setConfirmPasswordError(false)
 
-        
-
-        if(name === '' || email === '' || password === '' || confirmPassword === '' || phoneNum === '' || address === '' || gender === '' || github === ''){
+        if(name === '' || email === '' || phoneNum === '' || address === '' || gender === '' || github === ''){
             if(name === ''){
                 setNameError(true)
-            }
-    
-            if(password === ''){
-                setPasswordError(true)
-            }
-    
-            if(confirmPassword === ''){
-              setConfirmPasswordError(true)
             }
     
             if(email === ''){
@@ -119,24 +115,16 @@ const Signup = (props) => {
             }
 
             setError("Please fill in all fields")
-            setTimeout(() => setError(""), 3000)
-            
+            setTimeout(() => setError(""),3000)
 
-        } else if(password.length < 6){
-            setPasswordLengthError("password is too short minimum of 6 characters is required")
-            setTimeout(() => setPasswordLengthError(''), 3000)
-        }else if(password !== confirmPassword){
-            setPasswordError(true)
-            setConfirmPassword(true)
-            setError("Password fields do not match")
-            setTimeout(() => setError(''), 3000)
-        }else{
+        } else{
+            
             try {
-                console.log(gender)
-                const resp = await fetch('http://localhost:5000/auth/student/register', {
-                method: "POST",
+                dispatch(updateAccount({name,email,phoneNum,address,gender,github,studentID}))
+                const resp = await fetch(`http://localhost:5000/student/${id}`, {
+                method: "PATCH",
                 mode: "cors",
-                body: JSON.stringify({name, email, password, phoneNum, gender, address, github}),
+                body: JSON.stringify({name, email, phoneNum, gender, address, github}),
                 headers: {
                     "Content-type": "application/json"
                 }
@@ -145,35 +133,37 @@ const Signup = (props) => {
 
                 if(resp.status === 400){
                     setError(data.msg)
+                    setTimeout(() => setError(""), 2000)
+                    setTimeout(() => window.location.reload(true), 2100)
+                    
                 }else{
                     localStorage.setItem('studentDetails', JSON.stringify(data))
                     navigate(`/`)
+                    // I reloaded here so the navbar component can update it's state and use the current name of the loggedIn student
                     window.location.reload(true)
                     console.log(data)
-                    // setloggedInStudent(data)
                 }
             } catch (error) {
                 console.log(error)
             }
         }
     }
-
-    
     
     const classes = useStyles()
 
   return (
     <>
       <Paper elevation={10} className={classes.paperStyle}>
-          <form className={classes.center} onSubmit = { handleRegister }>
+          <form className={classes.center} onSubmit = { handleUpdate }>
               <div className={classes.header}>
                   <p style={{color:'red', marginBottom:'15px'}}>{error}</p>
                   <AccountCircleIcon style={{ fontSize: 50 }}/>
-                  <Typography variant="h6">Student Registeration Form</Typography>
+                  <Typography variant="h6">Student Account Update Form</Typography>
               </div>
               <TextField 
                   id="standard-basic" 
-                  label="Name" 
+                  label="Name"
+                  value={name}
                   variant="standard"
                   error={nameError}
                   onChange={(e) => setName(e.target.value)}
@@ -183,7 +173,8 @@ const Signup = (props) => {
 
               <TextField 
                   id="standard-basic" 
-                  label="Email" 
+                  label="Email"
+                  value={email}
                   variant="standard"
                   type="email"
                   error={emailError}
@@ -197,6 +188,7 @@ const Signup = (props) => {
                   label="Phone Number" 
                   variant="standard"
                   type="Number"
+                  value={phoneNum}
                   error={phoneNumError}
                   onChange={(e) => setPhoneNum(e.target.value)}
                   fullWidth
@@ -207,6 +199,7 @@ const Signup = (props) => {
                   id="standard-basic" 
                   label="Address" 
                   variant="standard"
+                  value={address}
                   error={addressError}
                   onChange={(e) => setAddress(e.target.value)}
                   fullWidth
@@ -215,7 +208,8 @@ const Signup = (props) => {
 
               <TextField 
                   id="standard-basic" 
-                  label="Github Profile" 
+                  label="Github Profile"
+                  value={github}
                   variant="standard"
                   error={githubError}
                   onChange={(e) => setGithub(e.target.value)}
@@ -223,34 +217,12 @@ const Signup = (props) => {
                   sx={{mb:2}}
               />
 
-              <TextField 
-                  id="standard-basic" 
-                  label="Password" 
-                  variant="standard"
-                  type="password"
-                  error={passwordError}
-                  onChange={(e) => setPassword(e.target.value)}
-                  fullWidth
-                  sx={{mb:2}}
-              />
-              <small><i sx={{color:'red'}}>{passwordLengthError}</i></small>
-
-              <TextField 
-                  id="standard-basic" 
-                  label="Confirm Password" 
-                  variant="standard"
-                  type="password"
-                  error={confirmPasswordError}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  fullWidth
-                  sx={{mb:4}}
-              />
-
         <FormLabel sx={{textAlign:'left'}}>Gender</FormLabel>
           <RadioGroup
             row
             aria-labelledby="demo-row-radio-buttons-group-label"
             name="row-radio-buttons-group"
+            value={gender}
             sx={{mb:3}}
             onChange={(e) => setGender(e.target.value)}
           >
@@ -263,9 +235,9 @@ const Signup = (props) => {
                   type="submit"
                   variant="contained" 
                   color="success"
-                  onClick={() => handleRegister }
+                  onClick={() => handleUpdate }
               >
-                  Register
+                  Update
               </Button>
           </form>
       </Paper>
@@ -273,4 +245,4 @@ const Signup = (props) => {
   )
 }
 
-export default Signup
+export default AccountUpdate

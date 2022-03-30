@@ -6,9 +6,8 @@ import Button from '@mui/material/Button';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { makeStyles } from '@mui/styles';
 import { Paper } from '@mui/material';
-import { useSelector } from 'react-redux'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     center : {
         display: 'flex',
         flexDirection: 'column',
@@ -17,9 +16,18 @@ const useStyles = makeStyles({
     },
     paperStyle : {
         padding: 20,
-        height: '60vh',
-        width: '260px',
-        margin: '4rem auto'
+        height: '55vh',
+        width: '300px',
+        margin: '5rem auto 0 auto',
+        [theme.breakpoints.down('sm')] : {
+            width: '300px',
+            paddingBottom: 70,
+            height: '400px'
+        },
+        [theme.breakpoints.down("lg")] : {
+            marginTop: '5rem',
+            marginBottom: '4rem'
+        }
     },
     header : {
         margin: '1.5rem 0',
@@ -27,12 +35,8 @@ const useStyles = makeStyles({
     },
     passwordStyle : {
         margin: '25px',
-    },
-    iconSize : {
-        fontSize: '50px'
     }
-
-})
+}))
 
 const Signin = () => {
 
@@ -77,11 +81,11 @@ const Signin = () => {
 
                 if(resp.status === 400){
                     setError(data.msg)
-                    setTimeout(() => setError(""),1000)
+                    setTimeout(() => setError(""),3000)
                     navigate(`/signin`)
                 }else{
                     localStorage.setItem('studentDetails', JSON.stringify(data))
-                    navigate(`/dashboard`)
+                    navigate(`/`)
                     window.location.reload(true)
                 }
     
@@ -98,8 +102,8 @@ const Signin = () => {
     <Paper elevation={10} className={classes.paperStyle}>
         <form className={classes.center} onSubmit = { handleLogin }>
             <div className={classes.header}>
-                <p>{error}</p>
-                <AccountCircleIcon className={classes.iconSize}/>
+                <p style={{color:'red', marginBottom:'15px'}}>{error}</p>
+                <AccountCircleIcon style={{ fontSize: 50 }}/>
                 <Typography variant="h6">Student Login</Typography>
             </div>
             <TextField 

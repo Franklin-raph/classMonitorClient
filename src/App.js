@@ -7,9 +7,10 @@ import About from './pages/About';
 import Home from './pages/Home';
 import StudentDetails from './pages/StudentDetails';
 import AllStudents from './pages/AllStudents';
-import Layout from './components/Layout';
+import AccountUpdate from './pages/AccountUpdate';
 import Navbar from './components/Navbar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Grid } from '@mui/material';
 
 const theme = createTheme({
   typography: {
@@ -29,17 +30,16 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           <Navbar />
-          {/* <Layout>
             <Routes>
               <Route path='/dashboard' element={ <Dashboard /> } />
               <Route path='/signin' element={ <Signin /> } />
               <Route path='/signup' element={ <Signup /> } />
               <Route path='/about' element={ <About /> } />
               <Route path='/' element={ <Home /> } />
+              <Route path='/update' element={ <AccountUpdate /> } />
               <Route path='/allstudents' element={ <AllStudents /> } />
               <Route path='/student/:id' element={ <StudentDetails /> } />
             </Routes>
-          </Layout> */}
         </Router>
       </ThemeProvider>
     </>
