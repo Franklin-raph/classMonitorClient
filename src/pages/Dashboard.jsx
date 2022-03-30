@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Container from '@mui/material/Container'
 import { useSelector } from 'react-redux'
-import { Paper } from '@mui/material'
+import { Backdrop, CircularProgress, Grid, Typography, Card, } from '@mui/material'
+import InputBase from '@mui/material/InputBase';
+import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper';
+import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField'
 import { makeStyles } from '@mui/styles'
 import Avatar from '@mui/material/Avatar';
@@ -17,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor:'rgb(0, 33, 65) !important',
     color: '#fff !important'
   },
+  paperStyle: {
+    padding: 20,
+},
   nameandemail : {
     display: 'flex',
     justifyContent: 'space-around',
@@ -66,11 +73,22 @@ const useStyles = makeStyles((theme) => ({
     marginTop:'30px'
   },
   containerStyle : {
+    marginBottom: 30,
     [theme.breakpoints.down("lg")] : {
         marginTop: '4rem',
         marginBottom: '4rem'
     }
-}
+},
+innerCardDesign : {
+  display: 'flex',
+  justifyContent:'center',
+  // alignItems: 'center',
+  flexDirection: 'column'
+},
+innerCardText : {
+  marginLeft : 20,
+  display:'flex',
+},
 }))
 
 const Dashboard = () => {
@@ -85,6 +103,7 @@ const Dashboard = () => {
   const [solutionError, setSolutionError] = useState(false);
   const [assignmentErrorText, setAssignmentErrorText] = useState("");
   const [allStudentAssessments, setallStudentAssessments] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
 
   const studentID = studentDetails.value.signedInStudent.studentID
 
@@ -104,7 +123,8 @@ const Dashboard = () => {
   },[])
 
   allStudentAssessments.map((assessment) => {
-    console.log(assessment)
+    const date = new Date(assessment.createdAt).toDateString()
+    console.log(date)
   })
 
   console.log(allStudentAssessments)
@@ -137,6 +157,8 @@ const Dashboard = () => {
         }
       }  
     }
+
+    // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
 
 
@@ -195,11 +217,56 @@ const Dashboard = () => {
           </form>
           <small style={{ color: 'red'}}><i>{assignmentErrorText}</i></small>
 
-          {
-            allStudentAssessments.map((assessment) => (
-              <p>Task : {assessment.task}</p>
-            ))
-          }
+            <Paper
+                component="form"
+                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 250, margin: '18px auto' }}
+                >
+                <InputBase
+                    sx={{ ml: 1, flex: 1 }}
+                    placeholder="Search For A Task"
+                    onChange={(e) => {
+                        setSearchInput(e.target.value)
+                    }}
+                />
+                <IconButton sx={{ p: '10px' }} aria-label="search">
+                    <SearchIcon />
+                </IconButton>
+            </Paper>
+      <Grid container spacing={{ xs: 2, md: 3 }} >
+            {allStudentAssessments.length !== 0 ?
+                allStudentAssessments.filter((val) => {
+                    if(searchInput === "") return val
+                    else if (val.task.toLowerCase().includes(searchInput.toLowerCase()) || val.reference.toLowerCase().includes(searchInput.toLowerCase())) return val
+                })
+                .map((assessment) => {
+                    return (
+                    <Grid item key={assessment.id} xs={12} sm={6} md={6}>
+                            <Card elevation={3} className={classes.paperStyle}>
+                                <div className={classes.innerCardDesign}>
+                                    <div className={classes.innerCardText}>
+                                        <h4 style={{marginRight:'10px'}}>Task:</h4>
+                                        <Typography variant='subtitle2' sx={{fontSize: '16px'}}>{assessment.task}</Typography>
+                                    </div>
+                                    <div className={classes.innerCardText}>
+                                      <h4 style={{marginRight:'10px'}}>Reference:</h4>
+                                      <Typography variant='subtitle2' sx={{fontSize: '16px'}}>{assessment.reference}</Typography>
+                                    </div>
+                                    <div className={classes.innerCardText}>
+                                      <h4 style={{marginRight:'10px'}}>Date Given:</h4>
+                                      <Typography variant='subtitle2' sx={{fontSize: '16px'}}>{new Date(assessment.createdAt).toDateString()}</Typography>
+                                    </div>
+                                </div>
+                            </Card>
+                    </Grid> 
+                    )
+                }):(
+                <Backdrop sx={{ color: '#002141', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={true}
+                >
+                <CircularProgress color="inherit" />
+                </Backdrop>
+            )}
+      </Grid>
 
     </Container>
   )
