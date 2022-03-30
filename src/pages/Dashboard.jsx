@@ -84,9 +84,32 @@ const Dashboard = () => {
   const [solution, setSolution] = useState("");
   const [solutionError, setSolutionError] = useState(false);
   const [assignmentErrorText, setAssignmentErrorText] = useState("");
+  const [allStudentAssessments, setallStudentAssessments] = useState([]);
 
   const studentID = studentDetails.value.signedInStudent.studentID
 
+  useEffect( async () => {
+
+    try {
+      const resp = await fetch('http://localhost:5000/assessment/getAssessment')
+      const allAssessment = await resp.json()
+      
+        setallStudentAssessments(allAssessment)
+      
+    } catch (error) {
+      console.log(error)
+    }
+
+    
+  },[])
+
+  allStudentAssessments.map((assessment) => {
+    console.log(assessment)
+  })
+
+  console.log(allStudentAssessments)
+
+  // Method to handle assignment Submission
   const handleAssessmentSubmit = async (e) => {
     e.preventDefault()
 
@@ -114,6 +137,8 @@ const Dashboard = () => {
         }
       }  
     }
+
+
 
   return (
     <Container className={classes.containerStyle}>
@@ -169,6 +194,13 @@ const Dashboard = () => {
             </Button>
           </form>
           <small style={{ color: 'red'}}><i>{assignmentErrorText}</i></small>
+
+          {
+            allStudentAssessments.map((assessment) => (
+              <p>Task : {assessment.task}</p>
+            ))
+          }
+
     </Container>
   )
 }
