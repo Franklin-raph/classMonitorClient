@@ -57,6 +57,7 @@ const Signup = (props) => {
     const [gender, setGender] = useState('');
     const [github, setGithub] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    // const [avatar, setAvatar] = useState("");
 
     const navigate = useNavigate();
     const student = useSelector(state => state.student) 

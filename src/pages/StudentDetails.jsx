@@ -55,8 +55,9 @@ const useStyles = makeStyles((theme) => ({
       
     },
     avatar : {
-      padding: '6rem',
-      border:'10px solid #fff'
+      padding: '10rem',
+      border:'10px solid #fff',
+      width:'100px'
     },
     containerStyle : {
       [theme.breakpoints.down("lg")] : {
@@ -91,7 +92,7 @@ const StudentDetails = () => {
   return (
     <Container className={classes.containerStyle}>
     <div className={classes.avatarBox}>
-      <Avatar sx={{ backgroundColor:'#808080', fontSize:'5rem'}} className={classes.avatar}>{emailInitials}</Avatar>
+      <Avatar sx={{ backgroundColor:'#808080', fontSize:'5rem'}} className={classes.avatar}><img src={studentDetails.avatar} /></Avatar>
     </div>
     <Paper elevation={3} className={classes.paper}>
       
