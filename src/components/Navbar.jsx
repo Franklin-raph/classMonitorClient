@@ -48,6 +48,7 @@ function Navbar() {
 
         fetch('https://classroommonitorbackend.herokuapp.com/auth/student/logout')
         navigate(`/`)
+        window.location.reload()
 
         localStorage.removeItem('studentDetails')
 
@@ -85,8 +86,8 @@ function Navbar() {
               Sign Out
             </Link>
           </li>
-          <Divider orientation="vertical" flexItem sx={{ backgroundColor: '#fff', marginBottom:'7px'}}/>
-          <li className="nav__item" style={{color:'#fff'}}>
+          <Divider orientation="vertical" flexItem sx={{ backgroundColor: '#fff'}}/>
+          <li className="nav__item" style={{color:'#fff', marginTop:'7px'}}>
             { studentName ? <h6> Welcome, {studentName} </h6> : null}
           </li>
         </>

@@ -29,11 +29,11 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')] : {
             width: '300px',
             paddingBottom: 70,
-            height: '820px'
+            height: '870px'
         },
         [theme.breakpoints.down("lg")] : {
             marginTop: '5rem',
-            marginBottom: '4rem'
+            marginBottom: '4rem',
         }
     },
     header : {

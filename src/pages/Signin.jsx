@@ -17,16 +17,16 @@ const useStyles = makeStyles((theme) => ({
     paperStyle : {
         padding: 20,
         height: '55vh',
-        width: '300px',
+        width: '330px',
         margin: '5rem auto 0 auto',
         [theme.breakpoints.down('sm')] : {
             width: '300px',
             paddingBottom: 70,
-            height: '400px'
+            height: '420px',
         },
         [theme.breakpoints.down("lg")] : {
-            marginTop: '5rem',
-            marginBottom: '4rem'
+            marginTop: '9rem',
+            marginBottom: '4rem',
         }
     },
     header : {
@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Signin = () => {
 
+    const classes = useStyles()
     const location = useLocation();
     const navigate = useNavigate();
     
@@ -59,12 +60,14 @@ const Signin = () => {
         if(studentID === '' || password === ''){
             if(studentID === ''){
                 setEmailError(true)
+
             }
     
             if(password === ''){
                 setPasswordError(true)
             }
             setError("Please fill in the required fileds")
+            setTimeout(() => setError(""), 3000)
         }else {
             try {
                 const resp = await fetch('https://classroommonitorbackend.herokuapp.com/auth/student/login',{
@@ -94,8 +97,6 @@ const Signin = () => {
             }
         }
      }
-
-    const classes = useStyles()
     
   return (
     <>
@@ -113,6 +114,7 @@ const Signin = () => {
                 error={emailError}
                 onChange={(e) => setEmail(e.target.value)}
                 fullWidth
+                sx={{mb:2}}
                 
             />
 
@@ -133,6 +135,7 @@ const Signin = () => {
                 variant="contained" 
                 color="success"
                 onClick={() => handleLogin }
+                sx={{outline:'none'}}
             >
                 Login
             </Button>
