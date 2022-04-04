@@ -10,8 +10,7 @@ import TextField from '@mui/material/TextField'
 import { makeStyles } from '@mui/styles'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import { useNavigate, useLocation } from 'react-router-dom'
-import axios from 'axios'
+import { useNavigate, useLocation, useParams } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -96,6 +95,7 @@ const Dashboard = () => {
   const studentDetails = useSelector(state => state.student)
 
   const location = useLocation()
+  const { id } = useParams();
 
   const classes = useStyles()
   const navigate = useNavigate();
@@ -110,16 +110,14 @@ const Dashboard = () => {
   useEffect( async () => {
 
     try {
-      const resp = await fetch('http://localhost:5000/assessment/getAssessment')
+      const resp = await fetch('https://classroommonitorbackend.herokuapp.com/assessment/getAssessment')
       const allAssessment = await resp.json()
       
         setallStudentAssessments(allAssessment)
       
     } catch (error) {
       console.log(error)
-    }
-
-    
+    } 
   },[])
 
   allStudentAssessments.map((assessment) => {
@@ -141,7 +139,7 @@ const Dashboard = () => {
       
         setSolutionError(false)
         try {
-          const resp = await fetch('http://localhost:5000/assessment/solution', {
+          const resp = await fetch('https://classroommonitorbackend.herokuapp.com/assessment/solution', {
           method: 'POST',
           body: JSON.stringify({studentID, solution}),
           headers: {
@@ -165,7 +163,7 @@ const Dashboard = () => {
   return (
     <Container className={classes.containerStyle}>
       <div className={classes.avatarBox}>
-        <Avatar sx={{ backgroundColor:'#808080', fontSize:'5rem'}} className={classes.avatar}>{studentDetails.value.signedInStudent.email.charAt(0)}</Avatar>
+        <Avatar sx={{ backgroundColor:'#808080', fontSize:'5rem'}} className={classes.avatar}><img width={150} height={150} src={studentDetails.value.signedInStudent.avatar} /></Avatar>
       </div>
       <Paper elevation={3} className={classes.paper}>
         
@@ -190,9 +188,17 @@ const Dashboard = () => {
                   variant="contained" 
                   color="success"
                   onClick= {() => navigate(`/update`) }
-                  sx={{marginTop:'10px'}}
+                  sx={{marginTop:'10px', marginRight:'5px'}}
               >
                   Update Account
+        </Button>
+        <Button
+                  variant="contained" 
+                  color="success"
+                  onClick= {() => navigate(`/profilepicupload/${studentDetails.value.signedInStudent.studentID}`) }
+                  sx={{marginTop:'10px'}}
+              >
+                  Upload Profile Picture
         </Button>
 
           <form onSubmit={ handleAssessmentSubmit } className={classes.submit}>
@@ -244,15 +250,15 @@ const Dashboard = () => {
                             <Card elevation={3} className={classes.paperStyle}>
                                 <div className={classes.innerCardDesign}>
                                     <div className={classes.innerCardText}>
-                                        <h4 style={{marginRight:'10px'}}>Task:</h4>
+                                        <h6 style={{marginRight:'10px', fontWeight:'bold'}}>Task:</h6>
                                         <Typography variant='subtitle2' sx={{fontSize: '16px'}}>{assessment.task}</Typography>
                                     </div>
                                     <div className={classes.innerCardText}>
-                                      <h4 style={{marginRight:'10px'}}>Reference:</h4>
+                                      <h6 style={{marginRight:'10px', fontWeight:'bold'}}>Reference:</h6>
                                       <Typography variant='subtitle2' sx={{fontSize: '16px'}}>{assessment.reference}</Typography>
                                     </div>
                                     <div className={classes.innerCardText}>
-                                      <h4 style={{marginRight:'10px'}}>Date Given:</h4>
+                                      <h6 style={{marginRight:'10px', fontWeight:'bold'}}>Date Given:</h6>
                                       <Typography variant='subtitle2' sx={{fontSize: '16px'}}>{new Date(assessment.createdAt).toDateString()}</Typography>
                                     </div>
                                 </div>

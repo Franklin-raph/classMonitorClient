@@ -11,6 +11,10 @@
       --white-color: rgb(255, 255, 255);
       --black-color: #000000;
   }
+
+  a{
+    text-decoration: none !important;
+  }
   
   body {
       font-size: 18px;
@@ -24,6 +28,13 @@
       position: fixed; 
       bottom: 0;
   }
+
+::-webkit-file-upload-button{
+  color: #fff;
+  background-color: #777;
+  padding: 5px 10px;
+  border: none;
+}
   
   #loginBtn{
     background-color: var(--primary-color)!important;

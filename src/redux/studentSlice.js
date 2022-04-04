@@ -14,11 +14,14 @@ export const studentSlice = createSlice({
         },
         updateAccount:(state, action) => {
             state.value = action.payload;
-        }
+        },
+        uploadProfilePic:(state, action) => {
+            state.value = action.payload
+        },
     }
 })
 
-export const { signUp, signIn, updateAccount } = studentSlice.actions;
+export const { signUp, signIn, updateAccount, uploadProfilePic } = studentSlice.actions;
 export default studentSlice.reducer
 
 

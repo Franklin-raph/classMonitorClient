@@ -13,6 +13,7 @@ import FormLabel from '@mui/material/FormLabel';
 import { useSelector, useDispatch } from 'react-redux';
 import { signUp } from '../redux/studentSlice'
 
+
 const useStyles = makeStyles((theme) => ({
     center : {
         display: 'flex',
@@ -45,9 +46,7 @@ const useStyles = makeStyles((theme) => ({
     
 }))
 
-const Signup = (props) => {
-
-    
+const Signup = () => {
 
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -57,12 +56,10 @@ const Signup = (props) => {
     const [gender, setGender] = useState('');
     const [github, setGithub] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    // const [avatar, setAvatar] = useState("");
 
     const navigate = useNavigate();
-    const student = useSelector(state => state.student) 
+    const studentDetails = useSelector(state => state.student) 
     const dispatch = useDispatch();
-    
 
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
@@ -73,7 +70,6 @@ const Signup = (props) => {
     const [githubError, setGithubError] = useState(false);
     const [error, setError] = useState('')
     const [passwordLengthError, setPasswordLengthError] = useState('')
-    
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -87,8 +83,6 @@ const Signup = (props) => {
         setPhoneNumError(false)
         setPasswordError(false)
         setConfirmPasswordError(false)
-
-        
 
         if(name === '' || email === '' || password === '' || confirmPassword === '' || phoneNum === '' || address === '' || gender === '' || github === ''){
             if(name === ''){
@@ -134,7 +128,7 @@ const Signup = (props) => {
         }else{
             try {
                 console.log(gender)
-                const resp = await fetch('http://localhost:5000/auth/student/register', {
+                const resp = await fetch('https://classroommonitorbackend.herokuapp.com/auth/student/register', {
                 method: "POST",
                 mode: "cors",
                 body: JSON.stringify({name, email, password, phoneNum, gender, address, github}),
@@ -166,7 +160,7 @@ const Signup = (props) => {
   return (
     <>
       <Paper elevation={10} className={classes.paperStyle}>
-          <form className={classes.center} onSubmit = { handleRegister }>
+          <form className={classes.center} onSubmit = { handleRegister } >
               <div className={classes.header}>
                   <p style={{color:'red', marginBottom:'15px'}}>{error}</p>
                   <AccountCircleIcon style={{ fontSize: 50 }}/>
@@ -259,7 +253,6 @@ const Signup = (props) => {
             <FormControlLabel value="female" control={<Radio />} label="Female" />
             <FormControlLabel value="other" control={<Radio />} label="Other" />
           </RadioGroup>
-
               <Button
                   type="submit"
                   variant="contained" 

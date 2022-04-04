@@ -55,9 +55,8 @@ const useStyles = makeStyles((theme) => ({
       
     },
     avatar : {
-      padding: '10rem',
+      padding: '6rem',
       border:'10px solid #fff',
-      width:'100px'
     },
     containerStyle : {
       [theme.breakpoints.down("lg")] : {
@@ -77,7 +76,7 @@ const StudentDetails = () => {
     
     useEffect( async () => {
         try{
-            const resp = await axios.get(`http://localhost:5000/student/${id}`)
+            const resp = await axios.get(`https://classroommonitorbackend.herokuapp.com/student/${id}`)
             const data = await resp.data
             setStudentDetails(data)
             console.log(data)
@@ -92,7 +91,7 @@ const StudentDetails = () => {
   return (
     <Container className={classes.containerStyle}>
     <div className={classes.avatarBox}>
-      <Avatar sx={{ backgroundColor:'#808080', fontSize:'5rem'}} className={classes.avatar}><img src={studentDetails.avatar} /></Avatar>
+      <Avatar sx={{ backgroundColor:'#808080', fontSize:'5rem'}} className={classes.avatar}><img width={150} height={150} src={studentDetails.avatar} /></Avatar>
     </div>
     <Paper elevation={3} className={classes.paper}>
       

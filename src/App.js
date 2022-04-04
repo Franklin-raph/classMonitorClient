@@ -10,7 +10,7 @@ import AllStudents from './pages/AllStudents';
 import AccountUpdate from './pages/AccountUpdate';
 import Navbar from './components/Navbar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Grid } from '@mui/material';
+import ProfilePicUpload from './pages/ProfilePicUpload';
 
 const theme = createTheme({
   typography: {
@@ -39,6 +39,7 @@ function App() {
               <Route path='/update' element={ <AccountUpdate /> } />
               <Route path='/allstudents' element={ <AllStudents /> } />
               <Route path='/student/:id' element={ <StudentDetails /> } />
+              <Route path='/profilepicupload/:id' element={ <ProfilePicUpload /> } />
             </Routes>
         </Router>
       </ThemeProvider>

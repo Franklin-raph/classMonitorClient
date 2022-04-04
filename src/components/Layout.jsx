@@ -60,7 +60,7 @@ const Layout = ({ children }) => {
     
     
     const handleSignOut = () => {
-        fetch('http://localhost:5000/auth/student/logout')
+        fetch('https://classroommonitorbackend.herokuapp.com/auth/student/logout')
         navigate(`/`)
 
         localStorage.removeItem('studentDetails')

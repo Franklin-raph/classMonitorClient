@@ -67,7 +67,7 @@ const Signin = () => {
             setError("Please fill in the required fileds")
         }else {
             try {
-                const resp = await fetch('http://localhost:5000/auth/student/login',{
+                const resp = await fetch('https://classroommonitorbackend.herokuapp.com/auth/student/login',{
                     method:"POST",
                     body: JSON.stringify({studentID, password}),
                     headers: {
