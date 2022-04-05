@@ -107,7 +107,7 @@ const Home = () => {
               <input type="button" value="Login" className={classes.loginButton} id="homeLoginBtn" style={{marginLeft:'20px'}} onClick={()=> navigate(`/signin`)}/>
             </div>
           : 
-            <Button color='success' variant='contained' onClick={()=> console.log("first")}>My Dashboard</Button>
+            <Button color='success' variant='contained' onClick={()=> navigate(`/dashboard`)}>My Dashboard</Button>
           } 
         </div>
       </div>
