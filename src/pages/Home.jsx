@@ -4,12 +4,13 @@ import { makeStyles } from '@mui/styles';
 
 import Image from '../images/bg.jpg';
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 // import AwesomeSlider from 'react-awesome-slider';
 // import 'react-awesome-slider/dist/styles.css';
 
 const useStyles = makeStyles(theme => ({
   homeSection: {
-    background: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${Image})`,
+    background: `linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url(${Image})`,
     height: '100vh',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -57,15 +58,18 @@ const useStyles = makeStyles(theme => ({
     }
   },
   loginButton: {
-    backgroundColor: 'transparent',
-    padding: '7px 40px',
+    backgroundColor: 'rgba(0, 33, 65, 0.9)',
+    padding: '8px 45px',
     color:'#fff',
     outline: 'none',
-    border:'2px solid #fff',
+    border:'none',
     [theme.breakpoints.down('sm')] : {
       marginRight: '20px',
       marginTop:'20px'
-    }
+    },
+    // hover:{
+    //   border:'2px solid red'
+    // }
   },
   registerButton: {
     backgroundColor: 'transparent',
@@ -83,6 +87,7 @@ const useStyles = makeStyles(theme => ({
 const Home = () => {
 
   const classes = useStyles();
+  const navigate = useNavigate();
   const studentDetails = useSelector(state => state.student)
 
   console.log(studentDetails)
@@ -98,8 +103,8 @@ const Home = () => {
           <p className={classes.p}>Manage your students records, assignments and projects using the class monitor app.</p>
           {studentDetails.value === null ? 
             <div className={classes.homeButton}>
-              <input type="button" value="Register" className={classes.registerButton} style={{marginRight:'20px'}} onClick={()=> console.log("first")}/>
-              <input type="button" value="Login" className={classes.loginButton} style={{marginLeft:'20px'}} onClick={()=> console.log("first")}/>
+              <input type="button" value="Register" className={classes.registerButton} id="homeRegisterBtn" style={{marginRight:'20px'}} onClick={()=> navigate(`/signup`)}/>
+              <input type="button" value="Login" className={classes.loginButton} id="homeLoginBtn" style={{marginLeft:'20px'}} onClick={()=> navigate(`/signin`)}/>
             </div>
           : 
             <Button color='success' variant='contained' onClick={()=> console.log("first")}>My Dashboard</Button>

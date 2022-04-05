@@ -47,6 +47,8 @@ const Signin = () => {
     const [studentID, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('')
+
+    const [loading, setLoading] = useState(false)
     
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
@@ -68,7 +70,13 @@ const Signin = () => {
             }
             setError("Please fill in the required fileds")
             setTimeout(() => setError(""), 3000)
+            
         }else {
+            setLoading(true)
+
+            setTimeout(() => {
+                setLoading(false)
+            },7000)
             try {
                 const resp = await fetch('https://classroommonitorbackend.herokuapp.com/auth/student/login',{
                     method:"POST",
@@ -136,7 +144,15 @@ const Signin = () => {
                 color="success"
                 onClick={() => handleLogin }
                 sx={{outline:'none'}}
+                disabled={loading}
             >
+                {loading && (
+                    <span 
+                    className='spinner-border spinner-border-sm'
+                    role='status'
+                    aria-hidden='true'
+                        />
+                )}
                 Login
             </Button>
         </form>

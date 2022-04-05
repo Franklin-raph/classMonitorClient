@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -60,6 +60,9 @@ const Signup = () => {
     const navigate = useNavigate();
     const studentDetails = useSelector(state => state.student) 
     const dispatch = useDispatch();
+    const [state, setState] = useState({});
+
+    const [loading, setLoading] = useState(false)
 
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
@@ -71,10 +74,14 @@ const Signup = () => {
     const [error, setError] = useState('')
     const [passwordLengthError, setPasswordLengthError] = useState('')
 
+    useEffect(() => {
+        return () => {
+            setState({})
+        }
+    },[])
+
     const handleRegister = async (e) => {
         e.preventDefault();
-
-        dispatch(signUp({name,email,phoneNum,address,gender}))
 
         setNameError(false)
         setEmailError(false)
@@ -115,7 +122,6 @@ const Signup = () => {
 
             setError("Please fill in all fields")
             setTimeout(() => setError(""), 3000)
-            
 
         } else if(password.length < 6){
             setPasswordLengthError("password is too short minimum of 6 characters is required")
@@ -126,6 +132,13 @@ const Signup = () => {
             setError("Password fields do not match")
             setTimeout(() => setError(''), 3000)
         }else{
+            setLoading(true)
+
+            setTimeout(() => {
+                setLoading(false)
+            },7000)
+
+            dispatch(signUp({name,email,phoneNum,address,gender}))
             try {
                 console.log(gender)
                 const resp = await fetch('https://classroommonitorbackend.herokuapp.com/auth/student/register', {
@@ -254,13 +267,22 @@ const Signup = () => {
             <FormControlLabel value="other" control={<Radio />} label="Other" />
           </RadioGroup>
               <Button
-                  type="submit"
-                  variant="contained" 
-                  color="success"
-                  onClick={() => handleRegister }
-              >
-                  Register
-              </Button>
+                type="submit"
+                variant="contained" 
+                color="success"
+                onClick={() => handleRegister }
+                sx={{outline:'none'}}
+                disabled={loading}
+            >
+                {loading && (
+                    <span 
+                    className='spinner-border spinner-border-sm'
+                    role='status'
+                    aria-hidden='true'
+                        />
+                )}
+                Register
+            </Button>
           </form>
       </Paper>
     </>

@@ -95,7 +95,7 @@ function Navbar() {
           <>
           <li className="nav__item">
             <Link to="/signin" onClick={ navToggle } className="nav__link">
-              Sign In
+              Login
             </Link>
             </li>
             <li className="nav__item">
