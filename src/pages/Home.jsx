@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   homeSection: {
-    background: `linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url(${Image})`,
+    background: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${Image})`,
     height: '100vh',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -25,6 +25,7 @@ const useStyles = makeStyles(theme => ({
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
+    marginTop:'2rem',
   },
   h1: {
     fontWeight: 700,

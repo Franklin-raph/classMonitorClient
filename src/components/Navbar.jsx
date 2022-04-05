@@ -72,12 +72,12 @@ function Navbar() {
           { storageItem ?
           <>
           <li className="nav__item">
-            <Link to="/allstudents" id="nav__link">
+            <Link to="/allstudents" onClick={ navToggle } id="nav__link">
               View Students
             </Link>
           </li>
           <li className="nav__item">
-          <Link to="/dashboard" id="nav__link">
+          <Link to="/dashboard" onClick={ navToggle } id="nav__link">
             Dashboard
           </Link>
           </li>

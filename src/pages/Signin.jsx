@@ -69,6 +69,7 @@ const Signin = () => {
                 setPasswordError(true)
             }
             setError("Please fill in the required fileds")
+            setLoading(false)
             setTimeout(() => setError(""), 3000)
             
         }else {
