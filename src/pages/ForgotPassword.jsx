@@ -68,7 +68,7 @@ const ForgotPassword = () => {
                 setLoading(false)
             },5000)
             try {
-                const resp = await fetch('http://localhost:5000/student/forgotpassword',{
+                const resp = await fetch('https://classroommonitorbackend.herokuapp.com/student/forgotpassword',{
                     method:"POST",
                     body: JSON.stringify({email}),
                     headers: {

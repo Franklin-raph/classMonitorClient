@@ -65,7 +65,7 @@ const ResetPassowrd = () => {
 
     useEffect( async () =>{
         try {
-            const resp = await fetch(`http://localhost:5000/student/resetpassword/${student_id}/${token}`)
+            const resp = await fetch(`https://classroommonitorbackend.herokuapp.com/student/resetpassword/${student_id}/${token}`)
             const data = await resp.json()
             console.log(data)
             setStudentDetails(data)
@@ -119,7 +119,7 @@ const ResetPassowrd = () => {
 
             // dispatch(signUp({name,email,phoneNum,address,gender}))
             try {
-                const resp = await fetch(`http://localhost:5000/student/resetpassword/${student_id}/${token}`, {
+                const resp = await fetch(`https://classroommonitorbackend.herokuapp.com/student/resetpassword/${student_id}/${token}`, {
                 method: "PUT",
                 mode: "cors",
                 body: JSON.stringify({name, email, password, phoneNum, gender, address, github, avatar, cloudinary_id, studentID}),
