@@ -24,6 +24,7 @@ const ProfilePicUpload = () => {
 
     const studentDetails = useSelector(state => state.student)
     const navigate = useNavigate();
+    const { id } = useParams();
 
     const [file, setFile] = useState();
     const [imageError, setImageError] = useState("");
@@ -33,10 +34,7 @@ const ProfilePicUpload = () => {
     const [address, setAddress] = useState(studentDetails.value.signedInStudent.address);
     const [gender, setGender] = useState(studentDetails.value.signedInStudent.gender);
     const [github, setGithub] = useState(studentDetails.value.signedInStudent.github);
-
-    const { id } = useParams();
     
-
     const classes = useStyles();
 
     const handleFileSubmit = async (e) => {

@@ -107,7 +107,7 @@ const StudentDetails = () => {
       
       <div className={classes.studentID}>
       <p style={{padding: '10px 0'}}> <span style={{fontWeight:'bolder'}}>Student ID : </span>{studentDetails.studentID}</p>
-      <p style={{padding: '10px 0'}}> <span style={{fontWeight:'bolder'}}>Address : </span>{studentDetails.github}</p>
+      <p style={{padding: '10px 0'}}> <span style={{fontWeight:'bolder'}}>Address : </span>{studentDetails.address}</p>
         
       </div>
     </Paper>

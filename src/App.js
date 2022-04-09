@@ -11,6 +11,8 @@ import AccountUpdate from './pages/AccountUpdate';
 import Navbar from './components/Navbar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import ProfilePicUpload from './pages/ProfilePicUpload';
+import ResetPassowrd from './pages/ResetPassowrd';
+import ForgotPassword from './pages/ForgotPassword';
 
 const theme = createTheme({
   typography: {
@@ -40,6 +42,8 @@ function App() {
               <Route path='/allstudents' element={ <AllStudents /> } />
               <Route path='/student/:id' element={ <StudentDetails /> } />
               <Route path='/profilepicupload/:id' element={ <ProfilePicUpload /> } />
+              <Route path='/forgotpassword' element={<ForgotPassword /> } />
+              <Route path='/student/resetpassword/:student_id/:token' element={ <ResetPassowrd />} />
             </Routes>
         </Router>
       </ThemeProvider>

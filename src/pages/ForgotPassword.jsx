@@ -16,13 +16,13 @@ const useStyles = makeStyles((theme) => ({
     },
     paperStyle : {
         padding: 20,
-        height: '57vh',
+        height: '55vh',
         width: '330px',
         margin: '5rem auto 0 auto',
         [theme.breakpoints.down('sm')] : {
             width: '300px',
             paddingBottom: 70,
-            height: '440px',
+            height: '420px',
         },
         [theme.breakpoints.down("lg")] : {
             marginTop: '9rem',
@@ -38,69 +38,54 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const Signin = () => {
+const ForgotPassword = () => {
 
     const classes = useStyles()
     const location = useLocation();
     const navigate = useNavigate();
-    
-    const [studentID, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('')
 
+    const [email, setEmail] = useState('');
+    const [error, setError] = useState('');
+    const [msg, setMsg] = useState('');
+    const [emailError, setEmailError] = useState(false);
     const [loading, setLoading] = useState(false)
     
-    const [emailError, setEmailError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
-
-    const handleLogin =  async (e) => {
+    const handleResetPasswordLink =  async (e) => {
         e.preventDefault();
 
         setEmailError(false)
-        setPasswordError(false)
 
-        if(studentID === '' || password === ''){
-            if(studentID === ''){
-                setEmailError(true)
-
-            }
-    
-            if(password === ''){
-                setPasswordError(true)
-            }
-            setError("Please fill in the required fileds")
+        if(email === ''){
+            setError("Please fill in the required filed")
             setLoading(false)
             setTimeout(() => setError(""), 3000)
+            setEmailError(true)
             
         }else {
             setLoading(true)
 
             setTimeout(() => {
                 setLoading(false)
-            },7000)
+            },5000)
             try {
-                const resp = await fetch('https://classroommonitorbackend.herokuapp.com/auth/student/login',{
+                const resp = await fetch('http://localhost:5000/student/forgotpassword',{
                     method:"POST",
-                    body: JSON.stringify({studentID, password}),
+                    body: JSON.stringify({email}),
                     headers: {
                         "Content-type": "application/json"
                     },
                     mode: "cors"
                 })
-    
-                const data = await resp.json()
-                console.log(data)
 
-                if(resp.status === 400){
+                const data = await resp.json()
+                if(resp.status === 404){
                     setError(data.msg)
-                    setTimeout(() => setError(""),3000)
-                    navigate(`/signin`)
-                }else{
-                    localStorage.setItem('studentDetails', JSON.stringify(data))
-                    navigate(`/`)
-                    window.location.reload(true)
+                    setTimeout(() => setError(''), 5000)
+                } else{
+                    setMsg(`Password reset link has been sent to ${email}`)
+                    setTimeout(() => setMsg(''), 5000)
+                    setTimeout(() => window.location.reload(true), 5100)
                 }
-    
             } catch (error) {
                 console.log(error)
             }
@@ -110,40 +95,28 @@ const Signin = () => {
   return (
     <>
     <Paper elevation={10} className={classes.paperStyle}>
-        <form className={classes.center} onSubmit = { handleLogin }>
+        <form className={classes.center} onSubmit = { handleResetPasswordLink }>
             <div className={classes.header}>
-                <p style={{color:'red', marginBottom:'7px'}}>{error}</p>
+                <p style={{color:'red', marginBottom:'15px', fontSize:'14px'}}>{error}</p>
+                <p style={{color:'green', marginBottom:'15px', fontSize:'14px'}}>{msg}</p>
                 <AccountCircleIcon style={{ fontSize: 50 }}/>
-                <Typography variant="h6">Student Login</Typography>
+                <Typography variant="h6">Student Reset Password Request</Typography>
             </div>
             <TextField 
                 id="standard-basic" 
-                label="Student-ID" 
+                label="Email" 
                 variant="standard"
                 error={emailError}
                 onChange={(e) => setEmail(e.target.value)}
                 fullWidth
-                sx={{mb:2}}
-                
-            />
-
-            <TextField 
-                id="standard-basic" 
-                label="Password" 
-                variant="standard"
-                type="password"
-                error={passwordError}
-                onChange={(e) => setPassword(e.target.value)}
-                fullWidth
-                className={classes.passwordStyle}
-                sx={{mb:5}}
+                sx={{mb:4}}
             />
 
             <Button
                 type="submit"
                 variant="contained" 
                 color="success"
-                onClick={() => handleLogin }
+                onClick={() => handleResetPasswordLink }
                 sx={{outline:'none'}}
                 disabled={loading}
             >
@@ -154,13 +127,9 @@ const Signin = () => {
                     aria-hidden='true'
                         />
                 )}
-                Login
+                Reset Password Link
             </Button>
         </form>
-        <p style={{ textAlign: 'center', marginTop: '7px' }}>
-            <Link to={`/forgotpassword`}>Forgot Password?</Link>
-        </p>
-        
     </Paper>
         
         
@@ -168,4 +137,4 @@ const Signin = () => {
   )
 }
 
-export default Signin
+export default ForgotPassword
