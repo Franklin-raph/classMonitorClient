@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { makeStyles } from '@mui/styles';
-import { Paper } from '@mui/material';
+import { Container, Paper } from '@mui/material';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -25,24 +25,33 @@ const useStyles = makeStyles((theme) => ({
         padding: 35,
         height: '820px',
         width: '500px',
-        margin: '4rem auto',
+        margin: '1rem auto 4rem auto',
         [theme.breakpoints.down('sm')] : {
             width: '300px',
             paddingBottom: 70,
-            height: '870px'
+            height: '870px',
         },
         [theme.breakpoints.down("lg")] : {
-            marginTop: '5rem',
-            marginBottom: '4rem',
+            margin: '1rem auto 4rem auto',
         }
     },
     header : {
         textAlign: 'center',
         marginBottom: 40,
     },
-    passwordStyle : {
-        // margin: '25px',
+    mailInfo : {
+        marginTop: '3rem',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color:'#ff004c',
+        [theme.breakpoints.down("lg")] : {
+            marginTop: '4rem',
+            fontSize: '13px',
+            
+        }
     },
+
     
 }))
 
@@ -171,7 +180,8 @@ const Signup = () => {
     const classes = useStyles()
 
   return (
-    <>
+    <Container>
+    <p className={classes.mailInfo} > <i>NOTE: Make sure you use a working and active gmail, your <span style={{fontWeight: 'bold'}}>STUDENT ID</span> would be sent to your mail.</i> </p>
       <Paper elevation={10} className={classes.paperStyle}>
           <form className={classes.center} onSubmit = { handleRegister } >
               <div className={classes.header}>
@@ -285,7 +295,7 @@ const Signup = () => {
             </Button>
           </form>
       </Paper>
-    </>
+      </Container>
   )
 }
 
