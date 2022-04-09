@@ -58,8 +58,8 @@ const Signup = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const navigate = useNavigate();
-    const studentDetails = useSelector(state => state.student) 
-    const dispatch = useDispatch();
+    // const studentDetails = useSelector(state => state.student) 
+    // const dispatch = useDispatch();
     const [state, setState] = useState({});
 
     const [loading, setLoading] = useState(false)
@@ -138,7 +138,7 @@ const Signup = () => {
                 setLoading(false)
             },7000)
 
-            dispatch(signUp({name,email,phoneNum,address,gender}))
+            // dispatch(signUp({name,email,phoneNum,address,gender}))
             try {
                 console.log(gender)
                 const resp = await fetch('https://classroommonitorbackend.herokuapp.com/auth/student/register', {
@@ -154,10 +154,10 @@ const Signup = () => {
                 if(resp.status === 400){
                     setError(data.msg)
                 }else{
-                    localStorage.setItem('studentDetails', JSON.stringify(data))
-                    navigate(`/`)
-                    window.location.reload(true)
-                    console.log(data)
+                    // localStorage.setItem('studentDetails', JSON.stringify(data))
+                    navigate(`/signin`)
+                    // window.location.reload(true)
+                    // console.log(data)
                     // setloggedInStudent(data)
                 }
             } catch (error) {
