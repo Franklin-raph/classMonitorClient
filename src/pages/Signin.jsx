@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { makeStyles } from '@mui/styles';
 import { Paper } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel'
 
 const useStyles = makeStyles((theme) => ({
     center : {
@@ -30,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     header : {
-        margin: '1.5rem 0',
+        margin: '1.2rem 0',
         textAlign: 'center'
     },
     passwordStyle : {
@@ -52,6 +54,7 @@ const Signin = () => {
     
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
+    const [passwordType, setPasswordType] = useState("password");
 
     const handleLogin =  async (e) => {
         e.preventDefault();
@@ -106,7 +109,18 @@ const Signin = () => {
             }
         }
      }
-    
+
+     const showPasswordHandle = () => {
+        if(passwordType === "password"){
+        setPasswordType("text")
+        return;
+        }
+        else if(passwordType === "text"){
+            setPasswordType("password")
+        }
+      
+    }
+     
   return (
     <>
     <Paper elevation={10} className={classes.paperStyle}>
@@ -128,16 +142,20 @@ const Signin = () => {
             />
 
             <TextField 
-                id="standard-basic" 
+                id="standard-basic"
                 label="Password" 
                 variant="standard"
-                type="password"
+                type={passwordType}
                 error={passwordError}
                 onChange={(e) => setPassword(e.target.value)}
                 fullWidth
                 className={classes.passwordStyle}
-                sx={{mb:5}}
+                
             />
+            <div className={classes.showPasswordStyle}>
+                <FormControlLabel control={<Checkbox />} label="Show Password" sx={{mb:3, mr:12}} onChange={showPasswordHandle}/>
+                {/* <h6 style={{marginRight: '5px'}}></h6> */}
+            </div>
 
             <Button
                 type="submit"

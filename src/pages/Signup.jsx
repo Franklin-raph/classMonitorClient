@@ -10,8 +10,8 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-import { useSelector, useDispatch } from 'react-redux';
-import { signUp } from '../redux/studentSlice'
+import Snackbar from '@mui/material/Snackbar'
+import Checkbox from '@mui/material/Checkbox';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,13 +23,13 @@ const useStyles = makeStyles((theme) => ({
     },
     paperStyle : {
         padding: 35,
-        height: '820px',
+        height: '840px',
         width: '500px',
         margin: '1rem auto 4rem auto',
         [theme.breakpoints.down('sm')] : {
             width: '300px',
             paddingBottom: 70,
-            height: '870px',
+            height: '890px',
         },
         [theme.breakpoints.down("lg")] : {
             margin: '1rem auto 4rem auto',
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     },
     header : {
         textAlign: 'center',
-        marginBottom: 40,
+        marginBottom: 20,
     },
     mailInfo : {
         marginTop: '3rem',
@@ -82,6 +82,8 @@ const Signup = () => {
     const [githubError, setGithubError] = useState(false);
     const [error, setError] = useState('')
     const [passwordLengthError, setPasswordLengthError] = useState('')
+    const [passwordType, setPasswordType] = useState("password");
+    const [confirmPasswordType, setConfirmPasswordType] = useState("password");
 
     useEffect(() => {
         return () => {
@@ -175,6 +177,26 @@ const Signup = () => {
         }
     }
 
+    const showPasswordHandle = () => {
+        if(passwordType === "password"){
+            setPasswordType("text")
+            return;
+        }
+            else if(passwordType === "text"){
+                setPasswordType("password")
+        }
+    }
+
+    const showConfirmPasswordHandle = () => {
+        if(confirmPasswordType === "password"){
+            setConfirmPasswordType("text")
+            return;
+        }
+            else if(confirmPasswordType === "text"){
+                setConfirmPasswordType("password")
+        }
+    }
+
     
     
     const classes = useStyles()
@@ -245,24 +267,24 @@ const Signup = () => {
                   id="standard-basic" 
                   label="Password" 
                   variant="standard"
-                  type="password"
+                  type={passwordType}
                   error={passwordError}
                   onChange={(e) => setPassword(e.target.value)}
                   fullWidth
-                  sx={{mb:2}}
               />
+              <FormControlLabel control={<Checkbox />} label="Show Password" sx={{mb:2, mr:8}} onChange={showPasswordHandle}/>
               <small><i sx={{color:'red'}}>{passwordLengthError}</i></small>
 
               <TextField 
                   id="standard-basic" 
                   label="Confirm Password" 
                   variant="standard"
-                  type="password"
+                  type={confirmPasswordType}
                   error={confirmPasswordError}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   fullWidth
-                  sx={{mb:4}}
               />
+              <FormControlLabel control={<Checkbox />} label="Show Password" sx={{mb:2, mr:8}} onChange={showConfirmPasswordHandle}/>
 
         <FormLabel sx={{textAlign:'left'}}>Gender</FormLabel>
           <RadioGroup

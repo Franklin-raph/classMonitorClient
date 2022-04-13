@@ -5,6 +5,7 @@ import Divider from '@mui/material/Divider';
 import { makeStyles } from '@mui/styles'
 import axios from "axios";
 
+
 const useStyles = makeStyles({
   divider: {
     color: '#fff',
@@ -13,31 +14,17 @@ const useStyles = makeStyles({
 })
 
 function Navbar() {
-  const [active, setActive] = useState("nav__menu");
-  const [icon, setIcon] = useState("nav__toggler");
 
   const classes = useStyles();
 
     const navigate = useNavigate();
     const location = useLocation();
     const [studentName, setStudentName] = useState("")
+    const [isOpen, setIsOpen] = useState(false);
 
     const storageItem = localStorage.getItem('studentDetails')
 
     const studentDetails = useSelector(state => state.student)
-
-  // const 
-
-  const navToggle = () => {
-    if (active === "nav__menu") {
-      setActive("nav__menu nav__active");
-    } else setActive("nav__menu");
-
-    // Icon Toggler
-    if (icon === "nav__toggler") {
-      setIcon("nav__toggler toggle");
-    } else setIcon("nav__toggler");
-  };
 
   const handleLogout = () =>{
   //   axios.get('/auth/signout')
@@ -62,58 +49,50 @@ function Navbar() {
 
   console.log(studentName)
 
+  // 056576
+
   return (
     <>
-      <nav className="nav">
-        <Link to="/" className="nav__brand">
-          Class Monitor
-        </Link>
-        <ul className={ active }>
-          { storageItem ?
-          <>
-          <li className="nav__item">
-            <Link to="/allstudents" onClick={ navToggle } id="nav__link">
+        <nav className="navbar">
+            <a href="#">
+                <h4>Class Monitor</h4>
+            </a>
+            <div className={`nav-items ${isOpen && "open"}`}>
+            { storageItem ?
+            <>
+            <Link to="/allstudents" onClick={() => setIsOpen(!isOpen)}>
               View Students
             </Link>
-          </li>
-          <li className="nav__item">
-          <Link to="/dashboard" onClick={ navToggle } id="nav__link">
-            Dashboard
-          </Link>
-          </li>
-            <li className="nav__item">
-            <Link to="/" onClick={ handleLogout } id="nav__link">
+            <Link to="/dashboard" onClick={() => setIsOpen(!isOpen)}>
+              Dashboard
+            </Link>
+            <Link to="/" onClick={ handleLogout }>
               Sign Out
             </Link>
-          </li>
-          <Divider orientation="vertical" flexItem sx={{ backgroundColor: '#fff'}}/>
-          <li className="nav__item" style={{color:'#fff', marginTop:'7px'}}>
-            { studentName ? <h6> Welcome, {studentName} </h6> : null}
-          </li>
-        </>
-          :
-          <>
-          <li className="nav__item">
-            <Link to="/signin" onClick={ navToggle } className="nav__link">
+            <span style={{padding:'3px 0.06px', backgroundColor:'#fff', marginRight:'16px'}} className="verticalLine"></span>
+            <>
+              Welcome, { studentName ? <span>{studentName}</span> : null}
+            </>
+              
+            </>
+            :
+            <>
+            <Link to="/signin" onClick={() => setIsOpen(!isOpen)} >
               Login
             </Link>
-            </li>
-            <li className="nav__item">
-              <Link to="/signup" onClick={ navToggle } className="nav__link">
+              <Link to="/signup" onClick={() => setIsOpen(!isOpen)} >
               Register
             </Link>
-          </li>
-          
-          
-          </>
-          }
-        </ul>
-        <div onClick={ navToggle } className={ icon }>
-          <div className="line1"></div>
-          <div className="line2"></div>
-          <div className="line3"></div>
-        </div>
-      </nav>
+            </>
+            }
+
+            </div>
+            <div className={`nav-toggle ${isOpen && "open"}`} onClick={() => setIsOpen(!isOpen)}>
+              <div className="bar bar1"></div>
+              <div className="bar bar2"></div>
+              <div className="bar bar3"></div>
+            </div>
+        </nav>
     </>
   );
 }
