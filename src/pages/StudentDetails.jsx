@@ -1,10 +1,9 @@
-import { Container } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
 import Avatar from '@mui/material/Avatar';
-import { useNavigate, useLocation } from 'react-router-dom'
 import { Paper } from '@mui/material'
 
 const useStyles = makeStyles((theme) => ({
@@ -87,9 +86,10 @@ const StudentDetails = () => {
     },[])
 
     
+    
 
   return (
-    <Container className={classes.containerStyle}>
+  <Container className={classes.containerStyle}>
     <div className={classes.avatarBox}>
       <Avatar sx={{ backgroundColor:'#808080', fontSize:'5rem'}} className={classes.avatar}><img width={150} height={150} src={studentDetails.avatar} /></Avatar>
     </div>
@@ -112,14 +112,6 @@ const StudentDetails = () => {
       </div>
     </Paper>
   </Container>
-    // <Container>
-    //     <p>{studentDetails.name}</p>
-    //     <p>{studentDetails.email}</p>
-    //     <p>{studentDetails.phoneNum}</p>
-    //     <p>{studentDetails.studentID}</p>
-    //     <p>{studentDetails.gender}</p>
-    //     <p>{studentDetails.github}</p>
-    // </Container>
   )
 }
 
