@@ -55,7 +55,7 @@ function Navbar() {
     <>
         <nav className="navbar">
             <a href="#">
-                <h4>Class Monitor</h4>
+                <h4>Class Monitor.</h4>
             </a>
             <div className={`nav-items ${isOpen && "open"}`}>
             { storageItem ?
