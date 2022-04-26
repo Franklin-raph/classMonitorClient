@@ -78,9 +78,9 @@ const Signin = () => {
         }else {
             setLoading(true)
 
-            setTimeout(() => {
-                setLoading(false)
-            },7000)
+            // setTimeout(() => {
+            //     setLoading(false)
+            // },7000)
             try {
                 const resp = await fetch('https://classroommonitorbackend.herokuapp.com/auth/student/login',{
                     method:"POST",
@@ -92,6 +92,11 @@ const Signin = () => {
                 })
     
                 const data = await resp.json()
+                if(!data){
+                    setLoading(true)
+                }else{
+                    setLoading(false)
+                }
                 console.log(data)
 
                 if(resp.status === 400){

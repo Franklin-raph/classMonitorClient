@@ -145,9 +145,9 @@ const Signup = () => {
         }else{
             setLoading(true)
 
-            setTimeout(() => {
-                setLoading(false)
-            },7000)
+            // setTimeout(() => {
+            //     setLoading(false)
+            // },7000)
 
             // dispatch(signUp({name,email,phoneNum,address,gender}))
             try {
@@ -161,6 +161,11 @@ const Signup = () => {
                 }
             })
                 const data = await resp.json();
+                if(!data){
+                    setLoading(true)
+                }else{
+                    setLoading(false)
+                }
 
                 if(resp.status === 400){
                     setError(data.msg)
