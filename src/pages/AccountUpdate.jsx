@@ -42,7 +42,8 @@ const AccountUpdate = () => {
 
     const studentDetails = useSelector(state => state.student)
 
-    const [name, setName] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [phoneNum, setPhoneNum] = useState("");
     const [address, setAddress] = useState("");
@@ -55,7 +56,8 @@ const AccountUpdate = () => {
     const dispatch = useDispatch();
     
     const [emailError, setEmailError] = useState(false);
-    const [nameError, setNameError] = useState(false);
+    const [firstNameError, setFirstNameError] = useState(false);
+    const [lastNameError, setLastNameError] = useState(false);
     const [phoneNumError, setPhoneNumError] = useState(false);
     const [addressError, setAddressError] = useState(false);
     const [githubError, setGithubError] = useState(false);
@@ -64,7 +66,8 @@ const AccountUpdate = () => {
     
     useEffect(() => {
 
-        setName(studentDetails.value.signedInStudent.name)
+        setFirstName(studentDetails.value.signedInStudent.firstName)
+        setLastName(studentDetails.value.signedInStudent.lastName)
         setEmail(studentDetails.value.signedInStudent.email)
         setGender(studentDetails.value.signedInStudent.gender)
         setGithub(studentDetails.value.signedInStudent.github)
@@ -87,15 +90,20 @@ const AccountUpdate = () => {
     const handleUpdate = async (e) => {
         e.preventDefault();
 
-        setNameError(false)
+        setFirstNameError(false)
+        setLastNameError(false)
         setEmailError(false)
         setGithubError(false)
         setAddressError(false)
         setPhoneNumError(false)
 
-        if(name === '' || email === '' || phoneNum === '' || address === '' || gender === '' || github === ''){
-            if(name === ''){
-                setNameError(true)
+        if(firstName === '' || lastName === '' || email === '' || phoneNum === '' || address === '' || gender === '' || github === ''){
+            if(firstName === ''){
+                setFirstNameError(true)
+            }
+
+            if(lastName === ''){
+                setLastNameError(true)
             }
     
             if(email === ''){
@@ -120,11 +128,11 @@ const AccountUpdate = () => {
         } else{
             
             try {
-                dispatch(updateAccount({name,email,phoneNum,address,gender,github,studentID}))
-                const resp = await fetch(`http://localhost:5000/student/${id}`, {
+                dispatch(updateAccount({firstName, lastName, email,phoneNum,address,gender,github,studentID}))
+                const resp = await fetch(`https://classmonitorapp.herokuapp.com/student/${id}`, {
                 method: "PATCH",
                 mode: "cors",
-                body: JSON.stringify({name, email, phoneNum, gender, address, github}),
+                body: JSON.stringify({firstName, lastName, email, phoneNum, gender, address, github}),
                 headers: {
                     "Content-type": "application/json"
                 }
@@ -163,10 +171,21 @@ const AccountUpdate = () => {
               <TextField 
                   id="standard-basic" 
                   label="Name"
-                  value={name}
+                  value={firstName}
                   variant="standard"
-                  error={nameError}
-                  onChange={(e) => setName(e.target.value)}
+                  error={firstNameError}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  fullWidth
+                  sx={{mb:2}}
+              />
+
+              <TextField 
+                  id="standard-basic" 
+                  label="Name"
+                  value={lastName}
+                  variant="standard"
+                  error={lastNameError}
+                  onChange={(e) => setLastName(e.target.value)}
                   fullWidth
                   sx={{mb:2}}
               />

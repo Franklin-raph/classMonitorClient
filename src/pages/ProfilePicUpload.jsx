@@ -28,7 +28,8 @@ const ProfilePicUpload = () => {
 
     const [file, setFile] = useState();
     const [imageError, setImageError] = useState("");
-    const [name, setName] = useState(studentDetails.value.signedInStudent.name);
+    const [firstName, setFirstName] = useState(studentDetails.value.signedInStudent.firstName);
+    const [lastName, setLastName] = useState(studentDetails.value.signedInStudent.lastName);
     const [email, setEmail] = useState(studentDetails.value.signedInStudent.email);
     const [phoneNum, setPhoneNum] = useState(studentDetails.value.signedInStudent.phoneNum);
     const [address, setAddress] = useState(studentDetails.value.signedInStudent.address);
@@ -43,7 +44,8 @@ const ProfilePicUpload = () => {
         const formData = new FormData();
 
         formData.append('image', file)
-        formData.append('name', name)
+        formData.append('firstName', firstName)
+        formData.append('lastName', lastName)
         formData.append('email', email)
         formData.append('phoneNum', phoneNum)
         formData.append('address', address)
@@ -59,7 +61,7 @@ const ProfilePicUpload = () => {
             setTimeout(() => setImageError(""), 5000)
         } else {
             try {
-                const resp = await fetch(`https://classroommonitorbackend.herokuapp.com/student/uploadprofilepic/${id}`,{
+                const resp = await fetch(`https://classmonitorapp.herokuapp.com/student/uploadprofilepic/${id}`,{
                     method: "PATCH",
                     body: formData,
     

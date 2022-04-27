@@ -57,7 +57,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Signup = () => {
 
-    const [name, setName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNum, setPhoneNum] = useState('');
@@ -75,7 +76,8 @@ const Signup = () => {
 
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
-    const [nameError, setNameError] = useState(false);
+    const [firstNameError, setFirstNameError] = useState(false);
+    const [lastNameError, setLastNameError] = useState(false);
     const [phoneNumError, setPhoneNumError] = useState(false);
     const [addressError, setAddressError] = useState(false);
     const [confirmPasswordError, setConfirmPasswordError] = useState(false);
@@ -94,7 +96,8 @@ const Signup = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
 
-        setNameError(false)
+        setFirstNameError(false)
+        setLastNameError(false)
         setEmailError(false)
         setGithubError(false)
         setAddressError(false)
@@ -102,9 +105,13 @@ const Signup = () => {
         setPasswordError(false)
         setConfirmPasswordError(false)
 
-        if(name === '' || email === '' || password === '' || confirmPassword === '' || phoneNum === '' || address === '' || gender === '' || github === ''){
-            if(name === ''){
-                setNameError(true)
+        if(firstName === '' || lastName === '' || email === '' || password === '' || confirmPassword === '' || phoneNum === '' || address === '' || gender === '' || github === ''){
+            if(firstName === ''){
+                setFirstNameError(true)
+            }
+
+            if(lastName === ''){
+                setLastNameError(true)
             }
     
             if(password === ''){
@@ -152,10 +159,10 @@ const Signup = () => {
             // dispatch(signUp({name,email,phoneNum,address,gender}))
             try {
                 console.log(gender)
-                const resp = await fetch('https://classroommonitorbackend.herokuapp.com/auth/student/register', {
+                const resp = await fetch('https://classmonitorapp.herokuapp.com/auth/student/register', {
                 method: "POST",
                 mode: "cors",
-                body: JSON.stringify({name, email, password, phoneNum, gender, address, github}),
+                body: JSON.stringify({lastName, firstName, email, password, phoneNum, gender, address, github}),
                 headers: {
                     "Content-type": "application/json"
                 }
@@ -218,10 +225,20 @@ const Signup = () => {
               </div>
               <TextField 
                   id="standard-basic" 
-                  label="Name" 
+                  label="Firt Name" 
                   variant="standard"
-                  error={nameError}
-                  onChange={(e) => setName(e.target.value)}
+                  error={firstNameError}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  fullWidth
+                  sx={{mb:2}}
+              />
+
+              <TextField
+                  id="standard-basic" 
+                  label="Last Name" 
+                  variant="standard"
+                  error={lastNameError}
+                  onChange={(e) => setLastName(e.target.value)}
                   fullWidth
                   sx={{mb:2}}
               />

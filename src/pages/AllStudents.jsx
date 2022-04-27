@@ -46,7 +46,7 @@ const AllStudents = () => {
 
     useEffect( async () => {
         try {
-            const res = await axios.get('https://classroommonitorbackend.herokuapp.com/student')
+            const res = await axios.get('https://classmonitorapp.herokuapp.com/student')
             const data = await res.data
             setStudents(data)
             console.log(data)
@@ -77,7 +77,7 @@ const AllStudents = () => {
             {students.length !== 0 ?
                 students.filter((val) => {
                     if(searchInput === "") return val
-                    else if (val.email.toLowerCase().includes(searchInput.toLowerCase()) || val.name.toLowerCase().includes(searchInput.toLowerCase())) return val
+                    else if (val.email.toLowerCase().includes(searchInput.toLowerCase()) || val.firstName.toLowerCase().includes(searchInput.toLowerCase())) return val
                 })
                 .map((student) => {
                     return (
@@ -88,7 +88,7 @@ const AllStudents = () => {
                                     <Avatar sx={{ backgroundColor:'#808080'}}>{student.email.charAt(0)}</Avatar>
                                     <div className={classes.innerCardText}>
                                         <Typography variant='subtitle2' sx={{fontSize: '16px'}}>{student.email}</Typography>
-                                        {student.name}
+                                        {student.firstName}
                                     </div>
                                 </div>
                             </Card>

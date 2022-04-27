@@ -139,7 +139,7 @@ const Dashboard = () => {
       
         setSolutionError(false)
         try {
-          const resp = await fetch('https://classroommonitorbackend.herokuapp.com/assessment/solution', {
+          const resp = await fetch('https://classmonitorapp.herokuapp.com/assessment/solution', {
           method: 'POST',
           body: JSON.stringify({studentID, solution}),
           headers: {
@@ -168,7 +168,7 @@ const Dashboard = () => {
       <Paper elevation={3} className={classes.paper}>
         
         <div className={classes.nameandemail}>
-          <p style={{padding: '10px 0'}}> <span style={{fontWeight:'bolder'}}>Student Name : </span>{studentDetails.value.signedInStudent.name}</p>
+          <p style={{padding: '10px 0'}}> <span style={{fontWeight:'bolder'}}>Student Name : </span>{studentDetails.value.signedInStudent.firstName}</p>
           <p style={{padding: '10px 0'}}> <span style={{fontWeight:'bolder'}}>Student Email : </span>{studentDetails.value.signedInStudent.email}</p>
         </div>
         

@@ -75,7 +75,7 @@ const StudentDetails = () => {
     
     useEffect( async () => {
         try{
-            const resp = await axios.get(`https://classroommonitorbackend.herokuapp.com/student/${id}`)
+            const resp = await axios.get(`https://classmonitorapp.herokuapp.com/student/${id}`)
             const data = await resp.data
             setStudentDetails(data)
             console.log(data)

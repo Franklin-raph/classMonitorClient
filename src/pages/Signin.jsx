@@ -82,7 +82,7 @@ const Signin = () => {
             //     setLoading(false)
             // },7000)
             try {
-                const resp = await fetch('https://classroommonitorbackend.herokuapp.com/auth/student/login',{
+                const resp = await fetch('https://classmonitorapp.herokuapp.com/auth/student/login',{
                     method:"POST",
                     body: JSON.stringify({studentID, password}),
                     headers: {

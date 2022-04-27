@@ -46,7 +46,8 @@ const ResetPassowrd = () => {
     const { student_id, token } = useParams()
     const [studentDetails, setStudentDetails] = useState({})
 
-    const [name, setName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [studentID, setStudentID] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNum, setPhoneNum] = useState('');
@@ -65,11 +66,12 @@ const ResetPassowrd = () => {
 
     useEffect( async () =>{
         try {
-            const resp = await fetch(`https://classroommonitorbackend.herokuapp.com/student/resetpassword/${student_id}/${token}`)
+            const resp = await fetch(`https://classmonitorapp.herokuapp.com/student/resetpassword/${student_id}/${token}`)
             const data = await resp.json()
             console.log(data)
             setStudentDetails(data)
-            setName(data.student.name)
+            setFirstName(data.student.firstName)
+            setLastName(data.student.lastName)
             setAddress(data.student.address)
             setAvatar(data.student.avatar)
             setCloudinary_id(data.student.cloudinary_id)
@@ -122,7 +124,7 @@ const ResetPassowrd = () => {
                 const resp = await fetch(`https://classroommonitorbackend.herokuapp.com/student/resetpassword/${student_id}/${token}`, {
                 method: "PUT",
                 mode: "cors",
-                body: JSON.stringify({name, email, password, phoneNum, gender, address, github, avatar, cloudinary_id, studentID}),
+                body: JSON.stringify({firstName, lastName, email, password, phoneNum, gender, address, github, avatar, cloudinary_id, studentID}),
                 headers: {
                     "Content-type": "application/json"
                 }

@@ -33,7 +33,7 @@ function Navbar() {
   //   window.location.reload()
   //   console.log("User is signed out")
 
-        fetch('https://classroommonitorbackend.herokuapp.com/auth/student/logout')
+        fetch('https://classmonitorapp.herokuapp.com/auth/student/logout')
         navigate(`/`)
         window.location.reload()
 
@@ -43,7 +43,7 @@ function Navbar() {
   }
 
   useEffect(() => {
-    if(storageItem) setStudentName(studentDetails.value.signedInStudent.name)
+    if(storageItem) setStudentName(studentDetails.value.signedInStudent.firstName)
     else setStudentName("")
   },[])
 
@@ -55,7 +55,7 @@ function Navbar() {
     <>
         <nav className="navbar">
             <a href="#">
-                <h4>Class Monitor.</h4>
+                <h4>Class Monitor</h4>
             </a>
             <div className={`nav-items ${isOpen && "open"}`}>
             { storageItem ?
