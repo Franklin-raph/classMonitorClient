@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
     paperStyle : {
         padding: 35,
-        height: '840px',
+        height: '880px',
         width: '500px',
         margin: '1rem auto 4rem auto',
         [theme.breakpoints.down('sm')] : {
@@ -158,15 +158,17 @@ const Signup = () => {
 
             // dispatch(signUp({name,email,phoneNum,address,gender}))
             try {
-                console.log(gender)
+                
                 const resp = await fetch('https://classmonitorapp.herokuapp.com/auth/student/register', {
                 method: "POST",
                 mode: "cors",
-                body: JSON.stringify({lastName, firstName, email, password, phoneNum, gender, address, github}),
+                body: JSON.stringify({firstName, lastName, email, password, phoneNum, gender, address, github}),
+                
                 headers: {
                     "Content-type": "application/json"
                 }
             })
+                console.log(firstName, lastName, email, password, phoneNum, gender, address, github)
                 const data = await resp.json();
                 if(!data){
                     setLoading(true)

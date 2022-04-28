@@ -104,13 +104,14 @@ const Dashboard = () => {
   const [assignmentErrorText, setAssignmentErrorText] = useState("");
   const [allStudentAssessments, setallStudentAssessments] = useState([]);
   const [searchInput, setSearchInput] = useState('');
+  // const [searchInput, setSearchInput] = useState('');
 
   const studentID = studentDetails.value.signedInStudent.studentID
 
   useEffect( async () => {
 
     try {
-      const resp = await fetch('https://classroommonitorbackend.herokuapp.com/assessment/getAssessment')
+      const resp = await fetch('https://classmonitorapp.herokuapp.com/assessment/getAssessment')
       const allAssessment = await resp.json()
       
         setallStudentAssessments(allAssessment)
@@ -241,6 +242,7 @@ const Dashboard = () => {
       <Grid container spacing={{ xs: 2, md: 3 }} >
             {allStudentAssessments.length !== 0 ?
                 allStudentAssessments.filter((val) => {
+                  console.log(typeof val.task)
                     if(searchInput === "") return val
                     else if (val.task.toLowerCase().includes(searchInput.toLowerCase()) || val.reference.toLowerCase().includes(searchInput.toLowerCase())) return val
                 })

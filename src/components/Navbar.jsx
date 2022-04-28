@@ -47,7 +47,7 @@ function Navbar() {
     else setStudentName("")
   },[])
 
-  console.log(studentName)
+  console.log(storageItem)
 
   // 056576
 

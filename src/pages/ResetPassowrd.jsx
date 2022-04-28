@@ -115,13 +115,13 @@ const ResetPassowrd = () => {
         }else{
             setLoading(true)
 
-            setTimeout(() => {
-                setLoading(false)
-            },7000)
+            // setTimeout(() => {
+            //     setLoading(false)
+            // },7000)
 
             // dispatch(signUp({name,email,phoneNum,address,gender}))
             try {
-                const resp = await fetch(`https://classroommonitorbackend.herokuapp.com/student/resetpassword/${student_id}/${token}`, {
+                const resp = await fetch(`https://classmonitorapp.herokuapp.com/student/resetpassword/${student_id}/${token}`, {
                 method: "PUT",
                 mode: "cors",
                 body: JSON.stringify({firstName, lastName, email, password, phoneNum, gender, address, github, avatar, cloudinary_id, studentID}),
@@ -130,6 +130,12 @@ const ResetPassowrd = () => {
                 }
             })
                 const data = await resp.json();
+
+                if(!data){
+                    setLoading(true)
+                }else{
+                    setLoading(false)
+                }
 
                 if(resp.status === 400){
                     setError(data.msg)
@@ -195,7 +201,7 @@ const ResetPassowrd = () => {
                     aria-hidden='true'
                         />
                 )}
-                Reset Password Link
+                Reset Password
             </Button>
         </form>
     </Paper>
