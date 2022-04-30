@@ -62,7 +62,7 @@ const ProfilePicUpload = () => {
         } else {
             try {
                 const resp = await fetch(`https://classmonitorapp.herokuapp.com/student/uploadprofilepic/${id}`,{
-                    method: "PATCH",
+                    method: "PUT",
                     body: formData,
     
             })

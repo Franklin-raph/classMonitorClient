@@ -10,7 +10,6 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-import Snackbar from '@mui/material/Snackbar'
 import Checkbox from '@mui/material/Checkbox';
 
 
@@ -152,11 +151,7 @@ const Signup = () => {
         }else{
             setLoading(true)
 
-            // setTimeout(() => {
-            //     setLoading(false)
-            // },7000)
-
-            // dispatch(signUp({name,email,phoneNum,address,gender}))
+            // dispatch(signUp({firstName, lastName, email, password, phoneNum, gender, address, github}))
             try {
                 
                 const resp = await fetch('https://classmonitorapp.herokuapp.com/auth/student/register', {

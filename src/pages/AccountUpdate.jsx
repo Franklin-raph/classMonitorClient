@@ -126,17 +126,18 @@ const AccountUpdate = () => {
             setTimeout(() => setError(""),3000)
 
         } else{
-            
+            // https://classmonitorapp.herokuapp.com
             try {
                 dispatch(updateAccount({firstName, lastName, email,phoneNum,address,gender,github,studentID}))
                 const resp = await fetch(`https://classmonitorapp.herokuapp.com/student/${id}`, {
-                method: "PATCH",
+                method: "PUT",
                 mode: "cors",
                 body: JSON.stringify({firstName, lastName, email, phoneNum, gender, address, github}),
                 headers: {
                     "Content-type": "application/json"
                 }
             })
+            // http://localhost:3000/dashboard
                 const data = await resp.json();
 
                 if(resp.status === 400){

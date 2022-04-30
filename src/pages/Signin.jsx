@@ -78,9 +78,6 @@ const Signin = () => {
         }else {
             setLoading(true)
 
-            // setTimeout(() => {
-            //     setLoading(false)
-            // },7000)
             try {
                 const resp = await fetch('https://classmonitorapp.herokuapp.com/auth/student/login',{
                     method:"POST",
@@ -88,9 +85,7 @@ const Signin = () => {
                     headers: {
                         "Content-type": "application/json"
                     },
-                    mode: "cors"
                 })
-    
                 const data = await resp.json()
                 if(!data){
                     setLoading(true)

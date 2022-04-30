@@ -7,7 +7,7 @@ import store from './redux/store'
 // import axios from 'axios'
 
 
-// axios.defaults.baseURL = 'http://localhost:5000'
+// axios.defaults.baseURL = 'https://classmonitorapp.herokuapp.com/'
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
