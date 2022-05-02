@@ -63,6 +63,7 @@ const AccountUpdate = () => {
     const [githubError, setGithubError] = useState(false);
     const [error, setError] = useState('')
 
+    const [loading, setLoading] = useState(false)
     
     useEffect(() => {
 
@@ -127,10 +128,11 @@ const AccountUpdate = () => {
 
         } else{
             // https://classmonitorapp.herokuapp.com
+            setLoading(true)
             try {
                 dispatch(updateAccount({firstName, lastName, email,phoneNum,address,gender,github,studentID}))
                 const resp = await fetch(`https://classmonitorapp.herokuapp.com/student/${id}`, {
-                method: "PUT",
+                method: "PATCH",
                 mode: "cors",
                 body: JSON.stringify({firstName, lastName, email, phoneNum, gender, address, github}),
                 headers: {
@@ -139,6 +141,11 @@ const AccountUpdate = () => {
             })
             // http://localhost:3000/dashboard
                 const data = await resp.json();
+                if(!data){
+                    setLoading(true)
+                }else{
+                    setLoading(false)
+                }
 
                 if(resp.status === 400){
                     setError(data.msg)
@@ -256,7 +263,15 @@ const AccountUpdate = () => {
                   variant="contained" 
                   color="success"
                   onClick={() => handleUpdate }
+                  disabled={loading}
               >
+                  {loading && (
+                    <span 
+                    className='spinner-border spinner-border-sm'
+                    role='status'
+                    aria-hidden='true'
+                        />
+                )}
                   Update
               </Button>
           </form>

@@ -35,6 +35,8 @@ const ProfilePicUpload = () => {
     const [address, setAddress] = useState(studentDetails.value.signedInStudent.address);
     const [gender, setGender] = useState(studentDetails.value.signedInStudent.gender);
     const [github, setGithub] = useState(studentDetails.value.signedInStudent.github);
+
+    const [loading, setLoading] = useState(false)
     
     const classes = useStyles();
 
@@ -60,14 +62,20 @@ const ProfilePicUpload = () => {
             setImageError("Images size is more than 100kb")
             setTimeout(() => setImageError(""), 5000)
         } else {
+            setLoading(true)
             try {
                 // https://classmonitorapp.herokuapp.com
                 const resp = await fetch(`https://classmonitorapp.herokuapp.com/student/uploadprofilepic/${id}`,{
-                    method: "PUT",
+                    method: "PATCH",
                     body: formData,
     
             })
                 const data = await resp.json();
+                if(!data){
+                    setLoading(true)
+                }else{
+                    setLoading(false)
+                }
                 console.log(data)
                 localStorage.setItem('studentDetails', JSON.stringify(data))
                 navigate(`/dashboard`)
@@ -84,7 +92,20 @@ const ProfilePicUpload = () => {
           <p style={{ color: 'red' }}>{imageError}</p>
           <form onSubmit={handleFileSubmit} style={{marginTop:'16px'}}>
               <input type="file" className={classes.uploadButton} onChange={(e) => setFile(e.target.files[0])}/>
-        <Button variant="contained" color="success" size="md" sx={{marginTop:'16px', outline:'none !important'}} onClick={handleFileSubmit}>
+        <Button 
+            variant="contained" 
+            color="success" 
+            size="md" sx={{marginTop:'16px', outline:'none !important'}} 
+            onClick={handleFileSubmit} 
+            disabled={loading}
+            >
+                {loading && (
+                    <span 
+                    className='spinner-border spinner-border-sm'
+                    role='status'
+                    aria-hidden='true'
+                        />
+                )}
             Upload Image
         </Button>
         {/* <img src="" alt="" srcset={file.name} /> */}
