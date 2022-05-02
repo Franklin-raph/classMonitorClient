@@ -87,8 +87,7 @@ const ProfilePicUpload = () => {
         <Button variant="contained" color="success" size="md" sx={{marginTop:'16px', outline:'none !important'}} onClick={handleFileSubmit}>
             Upload Image
         </Button>
-        {/* <img src="" alt="" srcset={file.name} /> */}
-        <h2>Hello</h2>
+        <img src="" alt="" srcset={file.name} />
           </form>
         
       </Container>
