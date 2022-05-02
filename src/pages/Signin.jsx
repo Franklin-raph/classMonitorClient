@@ -18,16 +18,16 @@ const useStyles = makeStyles((theme) => ({
     },
     paperStyle : {
         padding: 20,
-        height: '57vh',
+        height: '60vh',
         width: '330px',
         margin: '5rem auto 0 auto',
         [theme.breakpoints.down('sm')] : {
             width: '300px',
             paddingBottom: 70,
-            height: '440px',
+            height: '500px',
         },
         [theme.breakpoints.down("lg")] : {
-            marginTop: '9rem',
+            marginTop: '4rem',
             marginBottom: '4rem',
         }
     },

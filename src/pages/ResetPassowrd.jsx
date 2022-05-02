@@ -18,14 +18,14 @@ const useStyles = makeStyles((theme) => ({
         padding: 20,
         height: '50vh',
         width: '330px',
-        margin: '5rem auto 0 auto',
+        margin: '3rem auto 0',
         [theme.breakpoints.down('sm')] : {
             width: '300px',
             paddingBottom: 70,
             height: '420px',
         },
         [theme.breakpoints.down("lg")] : {
-            marginTop: '9rem',
+            marginTop: '3rem',
             marginBottom: '4rem',
         }
     },

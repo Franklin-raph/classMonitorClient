@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
   containerStyle : {
     marginBottom: 30,
     [theme.breakpoints.down("lg")] : {
-        marginTop: '4rem',
+        marginTop: '1rem',
         marginBottom: '4rem'
     }
 },

@@ -22,13 +22,13 @@ const useStyles = makeStyles((theme) => ({
     },
     paperStyle : {
         padding: 35,
-        height: '880px',
+        height: '930px',
         width: '500px',
-        margin: '1rem auto 4rem auto',
+        margin: '1rem auto 4rem',
         [theme.breakpoints.down('sm')] : {
             width: '300px',
             paddingBottom: 70,
-            height: '890px',
+            height: '970px',
         },
         [theme.breakpoints.down("lg")] : {
             margin: '1rem auto 4rem auto',
@@ -39,13 +39,13 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 20,
     },
     mailInfo : {
-        marginTop: '3rem',
+        marginTop: '1.5rem',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         color:'#ff004c',
         [theme.breakpoints.down("lg")] : {
-            marginTop: '4rem',
+            marginTop: '1.5rem',
             fontSize: '13px',
             
         }

@@ -61,7 +61,8 @@ const ProfilePicUpload = () => {
             setTimeout(() => setImageError(""), 5000)
         } else {
             try {
-                const resp = await fetch(`https://classmonitorapp.herokuapp.com/student/uploadprofilepic/${id}`,{
+                // https://classmonitorapp.herokuapp.com
+                const resp = await fetch(`http://localhost:5000/student/uploadprofilepic/${id}`,{
                     method: "PUT",
                     body: formData,
     
