@@ -62,7 +62,7 @@ const ProfilePicUpload = () => {
         } else {
             try {
                 // https://classmonitorapp.herokuapp.com
-                const resp = await fetch(`http://localhost:5000/student/uploadprofilepic/${id}`,{
+                const resp = await fetch(`https://classmonitorapp.herokuapp.com/student/uploadprofilepic/${id}`,{
                     method: "PUT",
                     body: formData,
     
@@ -80,7 +80,7 @@ const ProfilePicUpload = () => {
         
     }
   return (
-      <Container sx={{marginTop: '4rem'}}>
+      <Container sx={{marginTop: '2rem'}}>
           <p style={{ color: 'red' }}>{imageError}</p>
           <form onSubmit={handleFileSubmit} style={{marginTop:'16px'}}>
               <input type="file" className={classes.uploadButton} onChange={(e) => setFile(e.target.files[0])}/>
