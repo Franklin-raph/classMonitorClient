@@ -13,6 +13,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import ProfilePicUpload from './pages/ProfilePicUpload';
 import ResetPassowrd from './pages/ResetPassowrd';
 import ForgotPassword from './pages/ForgotPassword';
+import TaskDetails from './pages/TaskDetails'
+import PageNotFound_404 from './pages/PageNotFound_404';
 
 const theme = createTheme({
   typography: {
@@ -41,9 +43,11 @@ function App() {
               <Route path='/update' element={ <AccountUpdate /> } />
               <Route path='/allstudents' element={ <AllStudents /> } />
               <Route path='/student/:id' element={ <StudentDetails /> } />
-              <Route path='/profilepicupload/:id' element={ <ProfilePicUpload /> } />
               <Route path='/forgotpassword' element={<ForgotPassword /> } />
+              <Route path='/taskdetails/:taskID' element={ <TaskDetails /> } />
+              <Route path='/profilepicupload/:id' element={ <ProfilePicUpload /> } />
               <Route path='/student/resetpassword/:student_id/:token' element={ <ResetPassowrd />} />
+              <Route path='*' element={ <PageNotFound_404 /> } />
             </Routes>
         </Router>
       </ThemeProvider>

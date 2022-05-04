@@ -45,6 +45,8 @@ const ProfilePicUpload = () => {
 
         const formData = new FormData();
 
+        console.log(formData)
+
         formData.append('image', file)
         formData.append('firstName', firstName)
         formData.append('lastName', lastName)

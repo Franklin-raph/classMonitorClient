@@ -81,7 +81,7 @@ const AllStudents = () => {
                 })
                 .map((student) => {
                     return (
-                    <Grid item key={student.id} xs={12} sm={6} md={4}>
+                    <Grid item key={student.studentID} xs={12} sm={6} md={4}>
                         <Link to={`/student/${student.studentID}`} className={classes.links}>
                             <Card elevation={3} className={classes.paperStyle}>
                                 <div className={classes.innerCardDesign}>

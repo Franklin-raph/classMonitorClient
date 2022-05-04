@@ -70,6 +70,7 @@ const StudentDetails = () => {
     const classes = useStyles()
 
     const { id } = useParams()
+    console.log(id)
     const [studentDetails, setStudentDetails] = useState([]);
     const [emailInitials, setEmailInitials] = useState('');
     
@@ -96,7 +97,7 @@ const StudentDetails = () => {
     <Paper elevation={3} className={classes.paper}>
       
       <div className={classes.nameandemail}>
-        <p style={{padding: '10px 0'}}> <span style={{fontWeight:'bolder'}}>Student Name : </span>{studentDetails.name}</p>
+        <p style={{padding: '10px 0'}}> <span style={{fontWeight:'bolder'}}>Student Name : </span>{studentDetails.firstName}</p>
         <p style={{padding: '10px 0'}}> <span style={{fontWeight:'bolder'}}>Student Email : </span>{studentDetails.email}</p>
       </div>
       

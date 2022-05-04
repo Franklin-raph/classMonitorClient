@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField'
 import { makeStyles } from '@mui/styles'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import { useNavigate, useLocation, useParams } from 'react-router-dom'
+import { useNavigate, useLocation, useParams, Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -88,22 +88,28 @@ innerCardText : {
   marginLeft : 20,
   display:'flex',
 },
+links : {
+  textDecoration: 'none'
+},
 }))
 
 const Dashboard = () => {
 
   const studentDetails = useSelector(state => state.student)
 
-  const location = useLocation()
-  const { id } = useParams();
+  // const location = useLocation()
+  // const { id } = useParams();
+  // const { task_id } = useParams();
 
   const classes = useStyles()
   const navigate = useNavigate();
   const [solution, setSolution] = useState("");
   const [solutionError, setSolutionError] = useState(false);
   const [assignmentErrorText, setAssignmentErrorText] = useState("");
+  const [assignmentSuccessText, setassignmentSuccessText] = useState("");
   const [allStudentAssessments, setallStudentAssessments] = useState([]);
   const [searchInput, setSearchInput] = useState('');
+  const [loading, setLoading] = useState(false);
   // const [searchInput, setSearchInput] = useState('');
 
   const studentID = studentDetails.value.signedInStudent.studentID
@@ -111,10 +117,11 @@ const Dashboard = () => {
   useEffect( async () => {
 
     try {
-      const resp = await fetch('https://classmonitorapp.herokuapp.com/assessment/getAssessment')
+      const resp = await fetch('https://classmonitorapp.herokuapp.com/assessment/getAllAssessment')
       const allAssessment = await resp.json()
-      
+      //https://classmonitorapp.herokuapp.com/assessment/getAllAssessment
         setallStudentAssessments(allAssessment)
+        console.log(allAssessment)
       
     } catch (error) {
       console.log(error)
@@ -140,6 +147,7 @@ const Dashboard = () => {
       
         setSolutionError(false)
         try {
+          setLoading(true)
           const resp = await fetch('https://classmonitorapp.herokuapp.com/assessment/solution', {
           method: 'POST',
           body: JSON.stringify({studentID, solution}),
@@ -150,6 +158,13 @@ const Dashboard = () => {
         })
     
         const data = await resp.json();
+          if(!data) setLoading(true)
+
+          setLoading(false)
+            
+          setTimeout(() => setSolution(""), 2000)
+          setassignmentSuccessText("Assignment Submitted Successfully")
+          setTimeout(() => setassignmentSuccessText(""), 2000)
         console.log(data)
         } catch (error) {
           console.log(error)
@@ -218,11 +233,20 @@ const Dashboard = () => {
                       color="success"
                       onClick= {() => handleAssessmentSubmit }
                       sx={{marginTop:'10px', padding:'-20px 40px'}}
+                      disabled={loading}
                   >
+                    {loading && (
+                    <span 
+                    className='spinner-border spinner-border-sm'
+                    role='status'
+                    aria-hidden='true'
+                        />
+                )}
                       Submit
             </Button>
           </form>
-          <small style={{ color: 'red'}}><i>{assignmentErrorText}</i></small>
+          <small><i style={{ color: 'red'}}>{assignmentErrorText}</i></small>
+          <small><i style={{ color: 'green'}}>{assignmentSuccessText}</i></small>
 
             <Paper
                 component="form"
@@ -248,7 +272,8 @@ const Dashboard = () => {
                 })
                 .map((assessment) => {
                     return (
-                    <Grid item key={assessment.id} xs={12} sm={6} md={6}>
+                    <Grid item key={assessment._id} xs={12} sm={6} md={6}>
+                      <Link to={`/taskdetails/${assessment._id}`} className={classes.links}>
                             <Card elevation={3} className={classes.paperStyle}>
                                 <div className={classes.innerCardDesign}>
                                     <div className={classes.innerCardText}>
@@ -265,6 +290,7 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </Card>
+                        </Link>
                     </Grid> 
                     )
                 }):(
