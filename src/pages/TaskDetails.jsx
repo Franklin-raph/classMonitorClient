@@ -25,8 +25,8 @@ const TaskDetails = () => {
     <Container>
       <h2 style={{ fontWeight: 'bold', textAlign:'center', marginTop:'1rem' }} >Task</h2>
       <p><span style={{fontWeight:'bold'}}>Task</span>:  {taskDetails.task} </p>
-      <p><span style={{fontWeight:'bold'}}>Task Details </span>: <span className='taskDetails'> {taskDetails.details} </span></p>
       <p><span style={{fontWeight:'bold'}}>Task Reference </span>:  {taskDetails.reference} </p>
+      <p><span style={{fontWeight:'bold'}}>Task Details </span>: <span className='taskDetails'> {taskDetails.details} </span></p>
       <p><span style={{fontWeight:'bold'}}>Task Deadline </span>:  {taskDetails.submissionDate} </p>
     </Container>
   )
