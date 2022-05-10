@@ -40,8 +40,6 @@ const useStyles = makeStyles((theme) => ({
 
 const AccountUpdate = () => {
 
-    const studentDetails = useSelector(state => state.student)
-
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -54,6 +52,11 @@ const AccountUpdate = () => {
 
     const navigate = useNavigate(); 
     const dispatch = useDispatch();
+
+    const studentDetails = useSelector(state => state.student)
+    if(studentDetails.value === null){
+        navigate(`/login`)
+      }
     
     const [emailError, setEmailError] = useState(false);
     const [firstNameError, setFirstNameError] = useState(false);

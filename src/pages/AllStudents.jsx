@@ -8,12 +8,12 @@ import { makeStyles } from '@mui/styles'
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography'
-
+import { useSelector } from 'react-redux'
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     paperStyle: {
@@ -39,9 +39,14 @@ const useStyles = makeStyles((theme) => ({
 const AllStudents = () => {
 
     const classes = useStyles();
+    const navigate = useNavigate();
 
     const [students, setStudents] = useState([]);
     const [searchInput, setSearchInput] = useState('');
+    const studentDetails = useSelector(state => state.student)
+    if(studentDetails.value === null){
+        navigate(`/login`)
+      }
     console.log(searchInput)
 
     useEffect( async () => {

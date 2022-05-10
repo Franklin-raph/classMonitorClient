@@ -77,7 +77,7 @@ function Navbar() {
             </>
             :
             <>
-            <Link to="/signin" onClick={() => setIsOpen(!isOpen)} >
+            <Link to="/login" onClick={() => setIsOpen(!isOpen)} >
               Login
             </Link>
               <Link to="/signup" onClick={() => setIsOpen(!isOpen)} >

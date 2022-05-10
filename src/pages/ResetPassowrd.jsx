@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { makeStyles } from '@mui/styles';
 import { Paper } from '@mui/material';
+import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
     center : {
@@ -45,6 +46,10 @@ const ResetPassowrd = () => {
 
     const { student_id, token } = useParams()
     const [studentDetails, setStudentDetails] = useState({})
+    // const logedInStudentDetails = useSelector(state => state.student)
+    // if(logedInStudentDetails.value === null){
+    //     navigate(`/login`)
+    //   }
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');

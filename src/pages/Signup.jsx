@@ -175,7 +175,7 @@ const Signup = () => {
                     setError(data.msg)
                 }else{
                     // localStorage.setItem('studentDetails', JSON.stringify(data))
-                    navigate(`/signin`)
+                    navigate(`/login`)
                     // window.location.reload(true)
                     // console.log(data)
                     // setloggedInStudent(data)

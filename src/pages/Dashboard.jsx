@@ -95,14 +95,19 @@ links : {
 
 const Dashboard = () => {
 
+  const navigate = useNavigate();
+
   const studentDetails = useSelector(state => state.student)
+  if(studentDetails.value === null){
+    navigate(`/login`)
+  }
 
   // const location = useLocation()
   // const { id } = useParams();
   // const { task_id } = useParams();
 
   const classes = useStyles()
-  const navigate = useNavigate();
+  
   const [solution, setSolution] = useState("");
   const [solutionError, setSolutionError] = useState(false);
   const [assignmentErrorText, setAssignmentErrorText] = useState("");

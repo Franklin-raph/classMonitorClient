@@ -1,10 +1,11 @@
 import { Button, Container } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
 import Avatar from '@mui/material/Avatar';
 import { Paper } from '@mui/material'
+import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -68,11 +69,16 @@ const useStyles = makeStyles((theme) => ({
 const StudentDetails = () => {
 
     const classes = useStyles()
+    const navigate = useNavigate();
 
     const { id } = useParams()
     console.log(id)
     const [studentDetails, setStudentDetails] = useState([]);
     const [emailInitials, setEmailInitials] = useState('');
+    const logedInStudentDetails = useSelector(state => state.student)
+    if(logedInStudentDetails.value === null){
+      navigate(`/login`)
+    }
     
     useEffect( async () => {
         try{

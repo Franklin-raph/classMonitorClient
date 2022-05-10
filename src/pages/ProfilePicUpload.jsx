@@ -23,6 +23,9 @@ const useStyles = makeStyles({
 const ProfilePicUpload = () => {
 
     const studentDetails = useSelector(state => state.student)
+    if(studentDetails.value === null){
+        navigate(`/login`)
+      }
     const navigate = useNavigate();
     const { id } = useParams();
 

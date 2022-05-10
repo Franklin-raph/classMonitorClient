@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
+import { useSelector } from 'react-redux'
 
 const TaskDetails = () => {
 
     let { taskID } = useParams();
+    const navigate = useNavigate();
     
     const [taskDetails, setTaskDetails] = useState([])
+    const studentDetails = useSelector(state => state.student)
+    if(studentDetails.value === null){
+      navigate(`/login`)
+    }
 
     const fetchTaskDetails = async () => {
         const task = await fetch(`https://classmonitorapp.herokuapp.com/assessment/getAnAssessment/${taskID}`)

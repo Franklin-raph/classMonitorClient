@@ -4,7 +4,7 @@ import { makeStyles } from '@mui/styles';
 
 import Image from '../images/bg.jpg';
 import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Redirect } from 'react-router-dom';
 // import AwesomeSlider from 'react-awesome-slider';
 // import 'react-awesome-slider/dist/styles.css';
 
@@ -90,6 +90,10 @@ const Home = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const studentDetails = useSelector(state => state.student)
+
+  if(studentDetails.value === null){
+    navigate(`/login`)
+  }
 
   console.log(studentDetails)
 
