@@ -67,27 +67,18 @@ const TaskDetails = () => {
       <p><span style={{fontWeight:'bold'}}>Task Deadline </span>:  {taskDetails.submissionDate} </p>
       {timeLeft.days || timeLeft.hours || timeLeft.minutes || timeLeft.seconds ? (
       <p>
-        <span>{timeLeft.days}</span>
-        <span>:</span>
-        <span>{timeLeft.hours}</span>
-        <span>:</span>
-        <span>{timeLeft.minutes}</span>
-        <span>:</span>
-        <span>{timeLeft.seconds}</span>
+        <span>{timeLeft.days}d </span>
+        <span>: </span>
+        <span>{timeLeft.hours}h </span>
+        <span>: </span>
+        <span>{timeLeft.minutes}m </span>
+        <span>: </span>
+        <span>{timeLeft.seconds}s</span>
       </p>
       ) : (
         <p>Time is up 🔥</p>
       )
     }
-      <p>
-        <span>{timeLeft.days}</span>
-        <span>:</span>
-        <span>{timeLeft.hours}</span>
-        <span>:</span>
-        <span>{timeLeft.minutes}</span>
-        <span>:</span>
-        <span>{timeLeft.seconds}</span>
-      </p>
     </Container>
   )
 }
