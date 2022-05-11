@@ -11,6 +11,8 @@ const TaskDetails = () => {
     
     const [taskDetails, setTaskDetails] = useState([])
     const studentDetails = useSelector(state => state.student)
+    
+
     if(studentDetails.value === null){
       navigate(`/login`)
     }
@@ -23,8 +25,35 @@ const TaskDetails = () => {
         console.log(taskDetails)
     }
 
+    const calculateTimeLeft = () => {
+      const ded = "2022-05-13T18:30:00+05:30"
+      const difference = +new Date(taskDetails.submissionCountdown) - +new Date();
+
+      let timeLeft = {};
+
+      if (difference > 0) {
+        timeLeft = {
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor(difference / (1000 * 60 * 60)),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+        };
+      }
+  
+      return timeLeft;  
+
+    };
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+    
+
+    console.log(timeLeft)
+
+
     useEffect(() => {
         fetchTaskDetails();
+        setTimeout(() => {
+          setTimeLeft(calculateTimeLeft());
+        }, 1000);
     },[])
 
   return (
@@ -34,6 +63,15 @@ const TaskDetails = () => {
       <p><span style={{fontWeight:'bold'}}>Task Reference </span>:  {taskDetails.reference} </p>
       <p><span style={{fontWeight:'bold'}}>Task Details </span>: <span className='taskDetails'> {taskDetails.details} </span></p>
       <p><span style={{fontWeight:'bold'}}>Task Deadline </span>:  {taskDetails.submissionDate} </p>
+      <p>
+        <span>{timeLeft.days}</span>
+        <span>:</span>
+        <span>{timeLeft.hours}</span>
+        <span>:</span>
+        <span>{timeLeft.minutes}</span>
+        <span>:</span>
+        <span>{timeLeft.seconds}</span>
+      </p>
     </Container>
   )
 }
