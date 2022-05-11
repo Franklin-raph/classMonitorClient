@@ -46,14 +46,16 @@ const TaskDetails = () => {
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
     
 
+    console.log("Before timeleft")
     console.log(timeLeft)
-
+    console.log("After timeleft")
+    setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
 
     useEffect(() => {
         fetchTaskDetails();
-        setTimeout(() => {
-          setTimeLeft(calculateTimeLeft());
-        }, 1000);
+        
     },[])
 
   return (
@@ -63,6 +65,20 @@ const TaskDetails = () => {
       <p><span style={{fontWeight:'bold'}}>Task Reference </span>:  {taskDetails.reference} </p>
       <p><span style={{fontWeight:'bold'}}>Task Details </span>: <span className='taskDetails'> {taskDetails.details} </span></p>
       <p><span style={{fontWeight:'bold'}}>Task Deadline </span>:  {taskDetails.submissionDate} </p>
+      {timeLeft.days || timeLeft.hours || timeLeft.minutes || timeLeft.seconds ? (
+      <p>
+        <span>{timeLeft.days}</span>
+        <span>:</span>
+        <span>{timeLeft.hours}</span>
+        <span>:</span>
+        <span>{timeLeft.minutes}</span>
+        <span>:</span>
+        <span>{timeLeft.seconds}</span>
+      </p>
+      ) : (
+        <p>Time is up 🔥</p>
+      )
+    }
       <p>
         <span>{timeLeft.days}</span>
         <span>:</span>
