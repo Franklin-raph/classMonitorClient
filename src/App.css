@@ -92,8 +92,8 @@
   padding: 1rem;
   width: 17%;
   border-radius: 20px;
-  margin-left:auto;
-  margin-left: auto;
+  /* margin-left:auto;
+  margin-left: auto; */
   /* box-shadow: 5px 5px 10px solid black; */
 }
 
@@ -165,8 +165,8 @@
   }
 
   .timeCountDown{
-    margin-left:auto;
-    margin-left: auto;
+    /* margin-left:auto;
+    margin-left: auto; */
     width: 70%;
   }
 }
