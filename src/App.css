@@ -161,6 +161,10 @@
   .navbar .verticalLine{
     display: none;
   }
+
+  .timeCountDown{
+    width: 70%;
+  }
 }
 
   #homeLoginBtn:hover{
