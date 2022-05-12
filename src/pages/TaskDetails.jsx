@@ -66,7 +66,7 @@ const TaskDetails = () => {
       <p><span style={{fontWeight:'bold'}}>Task Details </span>: <span className='taskDetails'> {taskDetails.details} </span></p>
       <p><span style={{fontWeight:'bold'}}>Task Deadline </span>:  {taskDetails.submissionDate} </p>
       {timeLeft.days || timeLeft.hours || timeLeft.minutes || timeLeft.seconds ? (
-      <p>
+      <p className='timeCountDown'>
         <span>{timeLeft.days}d </span>
         <span>: </span>
         <span>{timeLeft.hours}h </span>

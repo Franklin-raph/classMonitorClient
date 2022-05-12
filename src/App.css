@@ -86,6 +86,15 @@
   display: none;
 }
 
+.timeCountDown{
+  background-color: #388e3c;
+  color: #fff;
+  padding: 1rem;
+  width: 17%;
+  border-radius: 20px;
+  /* box-shadow: 5px 5px 10px solid black; */
+}
+
 @media screen and (max-width: 768px) {
   .navbar .nav-items{
     position: absolute;
