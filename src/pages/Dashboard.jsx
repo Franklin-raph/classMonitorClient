@@ -6,7 +6,6 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import SearchIcon from '@mui/icons-material/Search';
-import TextField from '@mui/material/TextField'
 import { makeStyles } from '@mui/styles'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -108,17 +107,10 @@ const Dashboard = () => {
 
   const classes = useStyles()
   
-  const [solution, setSolution] = useState("");
-  const [solutionError, setSolutionError] = useState(false);
-  const [assignmentErrorText, setAssignmentErrorText] = useState("");
-  const [assignmentSuccessText, setassignmentSuccessText] = useState("");
+
   const [allStudentAssessments, setallStudentAssessments] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [loading, setLoading] = useState(false);
-
-
-
-  const studentID = studentDetails.value.signedInStudent.studentID
 
   useEffect( async () => {
 
@@ -141,42 +133,7 @@ const Dashboard = () => {
 
   console.log(allStudentAssessments)
 
-  // Method to handle assignment Submission
-  const handleAssessmentSubmit = async (e) => {
-    e.preventDefault()
 
-    if(solution === ''){
-      setSolutionError(true)
-      setAssignmentErrorText("Paste the link to your assignment above in the input field")
-      setTimeout(() => setAssignmentErrorText(""), 2000)
-    }else{
-      
-        setSolutionError(false)
-        try {
-          setLoading(true)
-          const resp = await fetch('https://classmonitorapp.herokuapp.com/assessment/solution', {
-          method: 'POST',
-          body: JSON.stringify({studentID, solution}),
-          headers: {
-                "Content-type": "application/json"
-          },
-          mode: "cors"
-        })
-    
-        const data = await resp.json();
-          if(!data) setLoading(true)
-
-          setLoading(false)
-            
-          setTimeout(() => setSolution(""), 2000)
-          setassignmentSuccessText("Assignment Submitted Successfully")
-          setTimeout(() => setassignmentSuccessText(""), 2000)
-        console.log(data)
-        } catch (error) {
-          console.log(error)
-        }
-      }  
-    }
 
     // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
@@ -222,37 +179,6 @@ const Dashboard = () => {
               >
                   Upload Profile Picture
         </Button>
-
-          <form onSubmit={ handleAssessmentSubmit } className={classes.submit}>
-            <TextField 
-                      id="standard-basic" 
-                      label="Paste link to assignment here" 
-                      variant="standard"
-                      onChange={(e) => setSolution(e.target.value)}
-                      fullWidth
-                      sx={{mb:2, width:'70%', mr:5}}
-                      error={solutionError}
-                  />
-            <Button
-                      type="submit"
-                      variant="contained" 
-                      color="success"
-                      onClick= {() => handleAssessmentSubmit }
-                      sx={{marginTop:'10px', padding:'-20px 40px'}}
-                      disabled={loading}
-                  >
-                    {loading && (
-                    <span 
-                    className='spinner-border spinner-border-sm'
-                    role='status'
-                    aria-hidden='true'
-                        />
-                )}
-                      Submit
-            </Button>
-          </form>
-          <small><i style={{ color: 'red'}}>{assignmentErrorText}</i></small>
-          <small><i style={{ color: 'green'}}>{assignmentSuccessText}</i></small>
 
             <Paper
                 component="form"
