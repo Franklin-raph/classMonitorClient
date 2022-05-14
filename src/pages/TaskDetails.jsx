@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
   submit : {
     display: 'flex',
     alignItems:'center',
+    flexDirection:'column',
     marginTop:'30px'
   },
   
@@ -152,9 +153,11 @@ const TaskDetails = () => {
                       Submit
             </Button>
 
-            <small><i style={{ color: 'red'}}>{assignmentErrorText}</i></small>
-          <small><i style={{ color: 'green'}}>{assignmentSuccessText}</i></small>
           </form>
+
+          <small><i style={{ color: 'red'}}>{assignmentErrorText}</i></small>
+          <small><i style={{ color: 'green'}}>{assignmentSuccessText}</i></small>
+
       {timeLeft.days || timeLeft.hours || timeLeft.minutes || timeLeft.seconds ? (
       <p className='timeCountDown'>
         <span>{timeLeft.days}d </span>
