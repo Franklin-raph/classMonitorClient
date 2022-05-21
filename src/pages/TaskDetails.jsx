@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
   submit : {
     display: 'flex',
     alignItems:'center',
-    flexDirection:'column',
     marginTop:'30px'
   },
   
@@ -88,6 +87,7 @@ const TaskDetails = () => {
     if(solution === ''){
       setSolutionError(true)
       setAssignmentErrorText("Paste the link to your assignment above in the input field")
+      setTimeout(() => setSolutionError(false), 2000)
       setTimeout(() => setAssignmentErrorText(""), 2000)
     }else{
       
@@ -154,7 +154,7 @@ const TaskDetails = () => {
             </Button>
 
           </form>
-
+          
           <small><i style={{ color: 'red'}}>{assignmentErrorText}</i></small>
           <small><i style={{ color: 'green'}}>{assignmentSuccessText}</i></small>
 
