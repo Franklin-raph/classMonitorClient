@@ -109,7 +109,7 @@ const Home = () => {
           {studentDetails.value === null ? 
             <div className={classes.homeButton}>
               <input type="button" value="Register" className={classes.registerButton} id="homeRegisterBtn" style={{marginRight:'20px'}} onClick={()=> navigate(`/signup`)}/>
-              <input type="button" value="Login" className={classes.loginButton} id="homeLoginBtn" style={{marginLeft:'20px'}} onClick={()=> navigate(`/signin`)}/>
+              <input type="button" value="Login" className={classes.loginButton} id="homeLoginBtn" style={{marginLeft:'20px'}} onClick={()=> navigate(`/login`)}/>
             </div>
           : 
             <Button color='success' variant='contained' onClick={()=> navigate(`/dashboard`)}>My Dashboard</Button>
