@@ -97,7 +97,7 @@ const Signin = () => {
                 if(resp.status === 400){
                     setError(data.msg)
                     setTimeout(() => setError(""),3000)
-                    navigate(`/signin`)
+                    navigate(`/login`)
                 }else{
                     localStorage.setItem('studentDetails', JSON.stringify(data))
                     navigate(`/`)
