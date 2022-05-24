@@ -47,7 +47,7 @@ function App() {
               <Route path='/taskdetails/:taskID' element={ <TaskDetails /> } />
               <Route path='/profilepicupload/:id' element={ <ProfilePicUpload /> } />
               <Route path='/student/resetpassword/:student_id/:token' element={ <ResetPassowrd />} />
-              {/* <Route path='*' element={ <PageNotFound_404 /> } /> */}
+              <Route path='*' element={ <PageNotFound_404 /> } />
             </Routes>
         </Router>
       </ThemeProvider>
