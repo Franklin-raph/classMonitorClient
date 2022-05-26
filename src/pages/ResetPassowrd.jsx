@@ -145,8 +145,8 @@ const ResetPassowrd = () => {
                 if(resp.status === 400){
                     setError(data.msg)
                 }else{
-                    setError("Password has been set successfullyiii")
-                    navigate(`/signin`)
+                    setError("Password has been set successfully")
+                    navigate(`/login`)
                     setError("Password has been set successfully")
                 }
             } catch (error) {
